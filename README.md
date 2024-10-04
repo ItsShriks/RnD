@@ -1,8 +1,8 @@
 # RnD
 
-'''python
+```python
 sudo dmesg
 sudo dmesg | less
 
 ls -ahl .X*
-'''
+```
