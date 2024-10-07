@@ -26,3 +26,14 @@ sudo add-apt-repository ppa:flatpak/stable
  sudo apt update
  sudo apt install flatpak
 https://flathub.org/setup/Ubuntu
+sudo flatpak install flathub org.cloudcompare.CloudCompare -y
+flatpak run org.cloudcompare.CloudCompare
+QSocketNotifier: Can only be used with threads started with QThread
+Gtk-Message: 14:46:01.445: Failed to load module canberra-gtk-module
+Gtk-Message: 14:46:01.445: Failed to load module canberra-gtk-module
+Qt: Session management error: None of the authentication protocols specified are supported
+libpng warning: iCCP: known incorrect sRGB profile
+qt.gui.icc: fromIccProfile: failed minimal tag size sanity
+QPngHandler: Failed to parse ICC profile
+Language not found for translation file CloudCompare_chs.qm
+
