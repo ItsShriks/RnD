@@ -17,3 +17,5 @@ sudo apt install python3-pip
 pip install open3d
 ## Open3D
 pip install setuptools==60.2.0
+## 07 October 2024 13:53
+System is Ready !
