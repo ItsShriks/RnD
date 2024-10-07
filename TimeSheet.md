@@ -19,3 +19,4 @@ pip install open3d
 pip install setuptools==60.2.0
 ## 07 October 2024 13:53
 System is Ready !
+## Installation of CloudCompare
