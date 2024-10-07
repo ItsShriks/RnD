@@ -12,3 +12,7 @@ conda config --set auto_activate_base false
 conda create -n rnd
 
 
+## pip
+sudo apt install python3-pip
+pip install open3d
+## Open3D
