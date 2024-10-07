@@ -21,3 +21,8 @@ pip install setuptools==60.2.0
 System is Ready !
 ## Installation of CloudCompare
 07.10.24, 14:23:17 Tutorial PCL
+sudo apt install flatpak
+sudo add-apt-repository ppa:flatpak/stable
+ sudo apt update
+ sudo apt install flatpak
+https://flathub.org/setup/Ubuntu
