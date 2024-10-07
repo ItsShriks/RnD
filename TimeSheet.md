@@ -16,3 +16,4 @@ conda create -n rnd
 sudo apt install python3-pip
 pip install open3d
 ## Open3D
+pip install setuptools==60.2.0
