@@ -10,3 +10,5 @@ apt-get install libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxc
 conda config --set auto_activate_base false
 
 conda create -n rnd
+
+
