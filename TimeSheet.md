@@ -5,4 +5,5 @@ https://repo.anaconda.com/archive/Anaconda3-2024.06-1-Linux-x86_64.sh
 apt-get install libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 libxtst6
 ## To Not auto activate conda
 conda config --set auto_activate_base false
+
 conda create -n rnd
