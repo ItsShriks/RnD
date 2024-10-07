@@ -49,3 +49,5 @@ QPngHandler: Failed to parse ICC profile
 
 Language not found for translation file CloudCompare_chs.qm
 
+
+07.10.24, 17:07:41, Smoothened The Surface and Located Region of Interest
