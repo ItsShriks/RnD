@@ -39,8 +39,6 @@ QSocketNotifier: Can only be used with threads started with QThread
 
 Gtk-Message: 14:46:01.445: Failed to load module canberra-gtk-module
 
-Gtk-Message: 14:46:01.445: Failed to load module canberra-gtk-module
-
 Qt: Session management error: None of the authentication protocols specified are supported
 
 libpng warning: iCCP: known incorrect sRGB profile
