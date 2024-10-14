@@ -51,3 +51,9 @@ Language not found for translation file CloudCompare_chs.qm
 
 
 07.10.24, 17:07:41, Smoothened The Surface and Located Region of Interest
+
+# 14 October 2024 13:00
+
+
+
+14.10.24, 14:07:33 - Cropped by 100X100X100 meters*
