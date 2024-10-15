@@ -57,3 +57,14 @@ Language not found for translation file CloudCompare_chs.qm
 
 
 14.10.24, 14:07:33 - Cropped by 100X100X100 meters*
+
+15.10.24, 14:36:33 - Clustering Successful !
+
+##Points stats:
+Min: [-121.80550385 -127.46252441   -8.48567581], Max: [157.43299866 128.68302917  36.19382477]
+Contains NaN: False
+Contains Inf: False
+Number of clusters found: 847
+Number of noise points: 26355
+Clustering.py:53: UserWarning: *c* argument looks like a single numeric RGB or RGBA sequence, which should be avoided as value-mapping will have precedence in case its length matches with *x* & *y*.  Please use the *color* keyword-argument or provide a 2D array with a single row if you intend to specify the same RGB or RGBA value for all points.
+  ax.scatter(xyz[:, 0], xyz[:, 1], xyz[:, 2], s=20, c=color, label=f'Cluster {label}' if label != -1 else 'Noise')
