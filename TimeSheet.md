@@ -67,4 +67,11 @@ Contains Inf: False
 Number of clusters found: 847
 Number of noise points: 26355
 Clustering.py:53: UserWarning: *c* argument looks like a single numeric RGB or RGBA sequence, which should be avoided as value-mapping will have precedence in case its length matches with *x* & *y*.  Please use the *color* keyword-argument or provide a 2D array with a single row if you intend to specify the same RGB or RGBA value for all points.
-  ax.scatter(xyz[:, 0], xyz[:, 1], xyz[:, 2], s=20, c=color, label=f'Cluster {label}' if label != -1 else 'Noise')
+  ax.scatter(xyz[:, 0], xyz[:, 1], xyz[:, 2], s=20, c=color, label=f'Cluster {label}' if label != -1 else 'Noise')sudo apt install libusb-1.0-0-dev
+cd ~/pcl/build
+cmake ..
+make -j32
+sudo make install
+
+
+
