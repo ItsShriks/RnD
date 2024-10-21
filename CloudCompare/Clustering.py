@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import open3d as o3d
 
 # Load the binary file
-file_path = '/home/shrikar/RnD/lio-sam-output-map_field_D_flight-6/GlobalMapply.ply'
+file_path = '/home/shrikar/RnD/CloudCompare/Final.ply'
 
 point_cloud = o3d.io.read_point_cloud(file_path)
 
@@ -40,6 +40,7 @@ num_noise_points = list(dbscan_labels).count(-1)
 
 print(f'Number of clusters found: {num_clusters}')
 print(f'Number of noise points: {num_noise_points}')
+
 
 # Visualize the clusters
 fig = plt.figure(figsize=(10, 7))
