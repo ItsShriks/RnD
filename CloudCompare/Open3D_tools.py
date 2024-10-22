@@ -64,3 +64,5 @@ o3d.visualization.draw_geometries([inlier_cloud, outlier_cloud],
                                   front=[-0.4999, -0.1659, -0.8499],
                                   lookat=[2.1813, 2.0619, 2.0999],
                                   up=[0.1204, -0.9852, 0.1215])
+
+
