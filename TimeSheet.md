@@ -79,9 +79,15 @@ sudo make install
 
 
 
-# 27.10.24, 20:58:10
+# 22.10.24, 17:58
 
 Exported a bin file to ply and performed Clustering_2.py
+
+Performed CSF on the Final.ply file
+
+Checked las metadata
+
+As DBSCAN does not accept InF and NaN Points, so removed those NaN Row
 
 Number of clusters: 201
 [Open3D WARNING] GLFW Error: Cocoa: Failed to find service port for display
