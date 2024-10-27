@@ -21,17 +21,14 @@ pip install setuptools==60.2.0
 System is Ready !
 ## Installation of CloudCompare
 
-07.10.24, 14:23:17 Tutorial PCL
-sudo apt install flatpak
+07.10.24, 14:23:17
 
+sudo apt install flatpak
 sudo add-apt-repository ppa:flatpak/stable
 sudo apt update
 sudo apt install flatpak
-
 https://flathub.org/setup/Ubuntu
-
 sudo flatpak install flathub org.cloudcompare.CloudCompare -y
-
 flatpak run org.cloudcompare.CloudCompare
 
 ### Error Message
@@ -58,20 +55,23 @@ Language not found for translation file CloudCompare_chs.qm
 
 14.10.24, 14:07:33 - Cropped by 100X100X100 meters*
 
-15.10.24, 14:36:33 - Clustering Successful !
-##Points stats:
-Min: [-121.80550385 -127.46252441   -8.48567581], Max: [157.43299866 128.68302917  36.19382477]
-Contains NaN: False
+15.10.24, 14:36:33 - Clustering #1 Successful !
 
-Contains Inf: False
+## Points stats:
+Min: [-121.80550385 -127.46252441   -8.48567581], Max: [157.43299866 128.68302917  36.19382477]
+Contains NaN: True
+Contains Inf: True
 
 Number of clusters found: 847
-
 Number of noise points: 26355
 
-Clustering.py:53: UserWarning: *c* argument looks like a single numeric RGB or RGBA sequence, which should be avoided as value-mapping will have precedence in case its length matches with *x* & *y*.  Please use the *color* keyword-argument or provide a 2D array with a single row if you intend to specify the same RGB or RGBA value for all points.
-  ax.scatter(xyz[:, 0], xyz[:, 1], xyz[:, 2], s=20, c=color, label=f'Cluster {label}' if label != -1 else 'Noise')sudo apt install libusb-1.0-0-dev
+Clustering.py:53: UserWarning: *c* argument looks like a single numeric RGB or RGBA sequence, which should be avoided as value-mapping will have precedence in case its length matches with *x* & *y*.  
+Please use the *color* keyword-argument or provide a 2D array with a single row if you intend to specify the same RGB or RGBA value for all points.ax.scatter(xyz[:, 0], xyz[:, 1], xyz[:, 2], s=20, c=color, label=f'Cluster {label}' if label != -1 else 'Noise')
+  
+Rectified NaN and Inf points in Clustering.py
 
+### PCL Installation
+sudo apt install libusb-1.0-0-dev
 cd ~/pcl/build
 cmake ..
 make -j32
@@ -79,7 +79,10 @@ sudo make install
 
 
 
-27.10.24, 20:58:10
+# 27.10.24, 20:58:10
+
+Exported a bin file to ply and performed Clustering_2.py
+
 Number of clusters: 201
 [Open3D WARNING] GLFW Error: Cocoa: Failed to find service port for display
 Cluster 0 has 1131027 points.
