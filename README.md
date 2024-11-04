@@ -3,9 +3,8 @@
 Work in Progress...🚧
 
 ## Milestones
-
-- <span style="color: green;">M1 Literature review completed and best practice identified</span>
-- <span style="background-color: yellow;">M2 Data Collection and Pre-processing</span>
+- ✅ **M1 Literature review completed and best practice identified**
+- 🟨 **M2 Data Collection and Pre-processing**
 - M3 Initial Model Implementation and Training
 - M4 Model Evaluation and Optimization
 - M5 Post Processing and Refinement
