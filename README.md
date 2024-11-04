@@ -12,9 +12,9 @@ Work in Progress...🚧
 
 ## Work Packages
 
-- <span style="color: green;">WP1 Literature Study</span>
-- <span style="color: green;">WP2 Identification of key features and patterns</span>
-- <span style="background-color: yellow;">WP3 Extract relevant features</span>
+- ✅ **WP1 Literature Study**
+- ✅ **WP2 Identification of key features and patterns**
+- 🟨 **WP3 Extract relevant features**
 - WP4 Implement and train unsupervised machine learning model
 - WP5 Categorize into classes using Clustering Algorithms
 - WP6 Retrain and optimize the Machine Learning Model
