@@ -14,7 +14,7 @@ o3d.visualization.draw_geometries([pcd], window_name="Original Point Cloud")
 
 # DBSCAN clustering for terrain and tree trunks
 # Parameters: eps is the max distance between points in the same cluster, and min_samples is the min number of points to form a cluster
-clustering = DBSCAN(eps=0.5, min_samples=10).fit(points)
+clustering = DBSCAN(eps=0.5, min_samples=100).fit(points)
 
 # Get labels for each point
 labels = clustering.labels_

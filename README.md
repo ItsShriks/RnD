@@ -3,35 +3,35 @@
 Work in Progress...🚧
 
 ## Milestones
-/green{M1 Literature review completed and best practice identified}
+<span style="color: green;">M1 Literature review completed and best practice identified</span>
 
-M2 Data Collection and Pre-processing
+<span style="background-color: yellow;">M2 Data Collection and Pre-processing</span>
 
-M3 Initial Model Implementation and Training
+M3 Initial Model Implementation and Training</span>
 
-M4 Model Evaluation and Optimization
+M4 Model Evaluation and Optimization</span>
 
-M5 Post Processing and Refinement
+M5 Post Processing and Refinement</span>
 
-M6 Documentation
+M6 Documentation</span>
 
 ## Work Packages 
-WP1 Literature Study
+<span style="color: green;">WP1 Literature Study</span>
 
-WP2 Identification of key features and patterns
+<span style="color: green;">WP2 Identification of key features and patterns</span>
 
-WP3 Extract relevant features
+<span style="background-color: yellow;">WP3 Extract relevant features</span>
 
-WP4 Implement and train unsupervised machine learning model
+WP4 Implement and train unsupervised machine learning model</span>
 
-WP6 Categorize into classes using Clustering Algorithms
+WP6 Categorize into classes using Clustering Algorithms</span>
 
-WP7 Retrain and optimize the Machine Learning Model
+WP7 Retrain and optimize the Machine Learning Model</span>
 
-WP8 Post-Processing and Smoothing of the data
+WP8 Post-Processing and Smoothing of the data</span>
 
-WP9 Parameter tuning and optimize the model
+WP9 Parameter tuning and optimize the model</span>
 
-WP10 Evaluation
+WP10 Evaluation</span>
 
-WP11 Documentation and troubleshooting
+WP11 Documentation and troubleshooting</span>
