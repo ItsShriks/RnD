@@ -95,3 +95,6 @@ Number of clusters: 201
 - Removal of NaN and InF points is NOT RECOMMENDED
 - How/Why did you perform the normalisation ?
 - Why 0.5 if the points are normalized to 0 - 1
+
+# 04.11.24, 15:45:23
+- CloudCompare Point Detection and Extract points
