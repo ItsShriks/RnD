@@ -91,7 +91,7 @@ Number of clusters: 201
 [Open3D WARNING] GLFW Error: Cocoa: Failed to find service port for display
 
 # 28.10.24, 10:25:49
-Get inside the fence
-Removal of NaN and InF points is NOT RECOMMENDED
-How/Why did you perform the normalisation ?
-Why 0.5 if the points are normalized to 0 - 1
+- Get inside the fence
+- Removal of NaN and InF points is NOT RECOMMENDED
+- How/Why did you perform the normalisation ?
+- Why 0.5 if the points are normalized to 0 - 1
