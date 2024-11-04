@@ -3,7 +3,7 @@
 Work in Progress...🚧
 
 ## Milestones
-M1 Literature review completed and best practice identified
+/green{M1 Literature review completed and best practice identified}
 
 M2 Data Collection and Pre-processing
 
