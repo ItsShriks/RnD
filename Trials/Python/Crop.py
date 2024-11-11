@@ -40,6 +40,7 @@ pcd = o3d.io.read_point_cloud("/Users/shrikar/Library/Mobile Documents/com~apple
 points = np.asarray(pcd.points)
 x_vals = points[:, 0]
 y_vals = points[:, 1]
+#Check Final.ply File error
 
 # Plot the point cloud points
 plt.scatter(x_vals, y_vals, c='blue', label='Point Cloud Points')
