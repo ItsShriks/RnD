@@ -36,7 +36,7 @@ else:
 plt.figure(figsize=(8, 6))
 
 # Extract X and Y coordinates of the points in the point cloud
-pcd = o3d.io.read_point_cloud("/Users/shrikar/Library/Mobile Documents/com~apple~CloudDocs/Sem III/R&D/RnD/lio-sam-output-map_field_D_flight-6/GlobalMapply.ply")  # Replace with your file path
+pcd = o3d.io.read_point_cloud("/lio-sam-output-map_field_D_flight-6/GlobalMapply.ply")  # Replace with your file path
 points = np.asarray(pcd.points)
 x_vals = points[:, 0]
 y_vals = points[:, 1]
