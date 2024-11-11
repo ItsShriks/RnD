@@ -31,11 +31,17 @@ y_vals = points[:, 1]
 # Plot the polygon and points
 plt.figure(figsize=(8, 6))
 plt.scatter(x_vals, y_vals, c='blue', label='Point Cloud Points')
-plt.fill(polygon_points[:, 0], polygon_points[:, 1], 'r', alpha=0.3, label='Polygon')  # Polygon in red
+
+# Plot the polygon
+polygon_x, polygon_y = polygon.exterior.xy  # Get the X, Y coordinates of the polygon
+plt.fill(polygon_x, polygon_y, 'r', alpha=0.3, label='Polygon')  # Polygon in red
+
+# Additional plot formatting
 plt.xlabel('X')
 plt.ylabel('Y')
 plt.title('Point Cloud Points and Polygon')
 plt.legend()
+plt.grid(True)
 plt.show()
 
 # Initialize a list for storing filtered points
