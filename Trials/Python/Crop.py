@@ -1,30 +1,45 @@
 import open3d as o3d
 import numpy as np
+from shapely.geometry import Polygon, Point
 
-# Define your 5 points as a numpy array
-five_points = np.array([
-    [-2.294216, 36.315838, -4.84553],
-    [16.956844, -44.380180, -4.84553],
-    [65.558228, 32.719646, -4.84553],
-    [65.664795, 26.725346, -4.84553],
-    [50.484165, -21.520457, -4.84553],
-    [-2.294216, 36.315838, 13.5509],
-    [16.956844, -44.380180, 13.5509],
-    [65.558228, 32.719646, 13.5509],
-    [65.664795, 26.725346, 13.5509],
-    [50.484165, -21.520457, 13.5509],
+# Define the 5 points of the polygon (base) and the Z-axis height range
+polygon_points = np.array([
+    [-2.294216, 36.315838],
+    [16.956844, -44.380180],
+    [65.558228, 32.719646],
+    [65.664795, 26.725346],
+    [50.484165, -21.520457],
 ])
 
-# Load your full point cloud
-pcd = o3d.io.read_point_cloud("Final.ply")  # Replace with your file path
+min_z = -4.84553  # Minimum Z value for the height range
+max_z = 13.5509  # Maximum Z value for the height range
 
-# Calculate the bounding box limits based on the five points
-min_bound = np.min(five_points, axis=0)
-max_bound = np.max(five_points, axis=0)
+# Create a Shapely polygon object for the base polygon
+polygon = Polygon(polygon_points)
 
-# Crop the point cloud using the bounding box limits
-cropped_pcd = pcd.crop(o3d.geometry.AxisAlignedBoundingBox(min_bound, max_bound))
+# Load the point cloud
+pcd = o3d.io.read_point_cloud("/Users/shrikar/Library/Mobile Documents/com~apple~CloudDocs/Sem III/R&D/RnD/Trials/Final.ply")  # Replace with your file path
 
-# Save or display the cropped point cloud
-o3d.io.write_point_cloud("cropped_point_cloud.ply", cropped_pcd)
-o3d.visualization.draw_geometries([cropped_pcd], window_name="Cropped Point Cloud")
+# Convert point cloud to numpy array
+points = np.asarray(pcd.points)
+
+# Initialize a list for storing filtered points
+filtered_points = []
+
+# Loop through each point in the point cloud
+for point in points:
+    x, y, z = point
+    # Check if the point is inside the polygon on the X-Y plane and if Z is within the specified range
+    if polygon.contains(Point(x, y)) and (min_z <= z <= max_z):
+        filtered_points.append(point)
+
+# Convert filtered points back to a numpy array
+filtered_points = np.array(filtered_points)
+
+# Convert the filtered points back to an Open3D point cloud
+filtered_pcd = o3d.geometry.PointCloud()
+filtered_pcd.points = o3d.utility.Vector3dVector(filtered_points)
+
+# Save or display the filtered point cloud
+o3d.io.write_point_cloud("filtered_point_cloud.ply", filtered_pcd)
+o3d.visualization.draw_geometries([filtered_pcd], window_name="Filtered Point Cloud")
