@@ -12,6 +12,9 @@ polygon_points = np.array([
     [50.484165, -21.520457],
 ])
 
+# Ensure the polygon is closed by adding the first point again at the end
+polygon_points = np.vstack([polygon_points, polygon_points[0]])
+
 min_z = -4.84553  # Minimum Z value for the height range
 max_z = 13.5509  # Maximum Z value for the height range
 
