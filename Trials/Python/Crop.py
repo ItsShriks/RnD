@@ -7,9 +7,10 @@ import matplotlib.pyplot as plt
 polygon_points = np.array([
     [-2.294216, 36.315838],
     [16.956844, -44.380180],
+    [50.484165, -21.520457],
     [65.558228, 32.719646],
     [65.664795, 26.725346],
-    [50.484165, -21.520457],
+    [-2.294216, 36.315838],
 ])
 
 # Ensure the polygon is closed by adding the first point again at the end
