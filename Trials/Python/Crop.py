@@ -1,6 +1,7 @@
 import open3d as o3d
 import numpy as np
 from shapely.geometry import Polygon, Point
+import matplotlib.pyplot as plt
 
 # Define the 5 points of the polygon (base) and the Z-axis height range
 polygon_points = np.array([
@@ -23,23 +24,45 @@ pcd = o3d.io.read_point_cloud("/Users/shrikar/Library/Mobile Documents/com~apple
 # Convert point cloud to numpy array
 points = np.asarray(pcd.points)
 
+# Visualize the points in the polygon (to check if they should be inside)
+x_vals = points[:, 0]
+y_vals = points[:, 1]
+
+# Plot the polygon and points
+plt.figure(figsize=(8, 6))
+plt.scatter(x_vals, y_vals, c='blue', label='Point Cloud Points')
+plt.fill(polygon_points[:, 0], polygon_points[:, 1], 'r', alpha=0.3, label='Polygon')  # Polygon in red
+plt.xlabel('X')
+plt.ylabel('Y')
+plt.title('Point Cloud Points and Polygon')
+plt.legend()
+plt.show()
+
 # Initialize a list for storing filtered points
 filtered_points = []
 
 # Loop through each point in the point cloud
 for point in points:
     x, y, z = point
-    # Check if the point is inside the polygon on the X-Y plane and if Z is within the specified range
-    if polygon.contains(Point(x, y)) and (min_z <= z <= max_z):
-        filtered_points.append(point)
+    # Check if the point is inside or on the boundary of the polygon on the X-Y plane and if Z is within the specified range
+    if polygon.contains(Point(x, y)) or polygon.exterior.intersects(Point(x, y)):  # Also consider boundary points
+        if min_z <= z <= max_z:
+            filtered_points.append(point)
 
-# Convert filtered points back to a numpy array
-filtered_points = np.array(filtered_points)
+# Check if filtered_points is empty
+if len(filtered_points) == 0:
+    print("No points found within the specified polygon and Z range.")
+else:
+    # Convert filtered points back to a numpy array
+    filtered_points = np.array(filtered_points)
 
-# Convert the filtered points back to an Open3D point cloud
-filtered_pcd = o3d.geometry.PointCloud()
-filtered_pcd.points = o3d.utility.Vector3dVector(filtered_points)
+    # Check the shape of the filtered points
+    print(f"Filtered points shape: {filtered_points.shape}")
 
-# Save or display the filtered point cloud
-o3d.io.write_point_cloud("filtered_point_cloud.ply", filtered_pcd)
-o3d.visualization.draw_geometries([filtered_pcd], window_name="Filtered Point Cloud")
+    # Convert the filtered points back to an Open3D point cloud
+    filtered_pcd = o3d.geometry.PointCloud()
+    filtered_pcd.points = o3d.utility.Vector3dVector(filtered_points)
+
+    # Save or display the filtered point cloud
+    o3d.io.write_point_cloud("filtered_point_cloud.ply", filtered_pcd)
+    o3d.visualization.draw_geometries([filtered_pcd], window_name="Filtered Point Cloud")
