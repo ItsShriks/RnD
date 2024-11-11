@@ -98,3 +98,12 @@ Number of clusters: 201
 
 # 04.11.24, 15:45:23
 - CloudCompare Point Detection and Extract points
+
+
+# 11.11.24, 13:03:44 
+
+## 13:03:44 
+- Update all Conda and Packages
+
+## 14:49:56
+- Cropping the data to be useful
