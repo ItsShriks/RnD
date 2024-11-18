@@ -111,3 +111,7 @@ Point 5 - [50.484165, -21.520457, 0.632474]
 
 ## 14:49:56
 - Cropping the data to be useful
+
+# 18.11.24, 14:32:08
+- DBSCan First Attempt Successfull
+- Number of clusters (excluding noise): 631
