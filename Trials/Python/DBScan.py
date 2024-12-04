@@ -4,7 +4,7 @@ from sklearn.cluster import DBSCAN
 import matplotlib as plt
 
 # Load point cloud from file
-pcd = o3d.io.read_point_cloud("/home/shrikar/RnD/filtered_point_cloud.ply")  # Replace with your file path
+pcd = o3d.io.read_point_cloud("filtered_point_cloud.ply")  # Replace with your file path
 # Convert Open3D point cloud to NumPy array for DBSCAN processing
 points = np.asarray(pcd.points)
 

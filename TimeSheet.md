@@ -63,9 +63,9 @@ Contains Inf: True
 Number of clusters found: 847
 Number of noise points: 26355
 
-Clustering.py:53: UserWarning: *c* argument looks like a single numeric RGB or RGBA sequence, which should be avoided as value-mapping will have precedence in case its length matches with *x* & *y*.  
+Clustering.py:53: UserWarning: *c* argument looks like a single numeric RGB or RGBA sequence, which should be avoided as value-mapping will have precedence in case its length matches with *x* & *y*.
 Please use the *color* keyword-argument or provide a 2D array with a single row if you intend to specify the same RGB or RGBA value for all points.ax.scatter(xyz[:, 0], xyz[:, 1], xyz[:, 2], s=20, c=color, label=f'Cluster {label}' if label != -1 else 'Noise')
-  
+
 Rectified NaN and Inf points in Clustering.py
 
 ### PCL Installation
@@ -104,9 +104,9 @@ Point 3 - [65.558228, 32.719646, -3.185380]
 Point 4 - [65.664795, 26.725346, -2.709546]
 Point 5 - [50.484165, -21.520457, 0.632474]
 
-# 11.11.24, 13:03:44 
+# 11.11.24, 13:03:44
 
-## 13:03:44 
+## 13:03:44
 - Update all Conda and Packages
 
 ## 14:49:56
@@ -115,3 +115,40 @@ Point 5 - [50.484165, -21.520457, 0.632474]
 # 18.11.24, 13:28
 - DBSCan First Attempt Successfull
 - Number of clusters (excluding noise): 631
+
+# 02.11.24, 15:00
+CUDA Installation in Progress !!
+
+
+# 04.12.24, 12:28
+I don;t know if i am getting the proper classes !
+
+1. I don;t what is the platform to get data annotated ?
+2. IS it right to annoatate the data ?
+3. Make Visualisation of the data
+4.
+
+
+1. Entire ply as a input
+2. Get the models of one tree trunk and try it with \
+
+Check Kugus for the visualising data
+
+
+DBSScan adds a parameter in the class
+
+Find a way to visualise
+- PCL Viewer
+- Simple Class maybe trunk
+- Input - be it actual trunk
+- How does exaclty PointNet work
+- What are the current state of the art methods ot PointCloud Segmentation
+
+DigiCNN
+
+
+QGIS - Numnber of Trunks
+
+CC
+Load the Model - Normals - SF Scalar Field - PlugINs - KAnnupus - 3dPoint Cloud Segmentation - ICP
+HKU Mars Hong Kong University - PointNet
