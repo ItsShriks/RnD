@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import open3d as o3d
 
 # Load the binary file
-file_path = 'Final.ply'
+file_path = 'filtered_point_cloud.ply'
 
 point_cloud = o3d.io.read_point_cloud(file_path)
 

@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 # Load a PLY point cloud, print it, and render it
 print("Load a ply point cloud, print it, and render it")
-ply = o3d.io.read_point_cloud("Final.ply")  # Loading the point cloud
+ply = o3d.io.read_point_cloud("filtered_point_cloud.ply")  # Loading the point cloud
 print(ply)  # Print the point cloud details
 print(np.asarray(ply.points))  # Convert points to NumPy array and print
 

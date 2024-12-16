@@ -152,3 +152,12 @@ QGIS - Numnber of Trunks
 CC
 Load the Model - Normals - SF Scalar Field - PlugINs - KAnnupus - 3dPoint Cloud Segmentation - ICP
 HKU Mars Hong Kong University - PointNet
+
+# 16.12.24, 11:34:20
+
+- Contact Pranisha for the data
+- Passthrough Filter
+- Elevation Model
+  - Digital Surface
+  - Digital Terrain
+    - For Image Based

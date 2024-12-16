@@ -2,18 +2,15 @@ import open3d as o3d
 import numpy as np
 from sklearn.cluster import DBSCAN
 import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 
 # Load the point cloud file
-pcd = o3d.io.read_point_cloud("Final.ply")
+pcd = o3d.io.read_point_cloud("filtered_point_cloud.ply")
 
 # Convert the point cloud to numpy array
 points = np.asarray(pcd.points)
 
-# Visualize original point cloud
-o3d.visualization.draw_geometries([pcd], window_name="Original Point Cloud")
-
 # DBSCAN clustering for terrain and tree trunks
-# Parameters: eps is the max distance between points in the same cluster, and min_samples is the min number of points to form a cluster
 clustering = DBSCAN(eps=0.5, min_samples=100).fit(points)
 
 # Get labels for each point
@@ -23,20 +20,35 @@ labels = clustering.labels_
 n_clusters = len(set(labels)) - (1 if -1 in labels else 0)
 print(f"Number of clusters: {n_clusters}")
 
-# Visualize the clusters
-max_label = labels.max()
-colors = plt.get_cmap("tab20")(labels / (max_label if max_label > 0 else 1))
-colors[labels < 0] = 0  # Assign noise to black color
-pcd.colors = o3d.utility.Vector3dVector(colors[:, :3])
+# Prepare colors for visualization
+unique_labels = set(labels)
+colors = plt.get_cmap("tab20")(np.linspace(0, 1, len(unique_labels)))
+cluster_colors = np.array([colors[label] if label != -1 else [0, 0, 0, 1] for label in labels])
 
-# Visualize the clustered point cloud
-o3d.visualization.draw_geometries([pcd], window_name="DBSCAN Clustered Point Cloud")
+# Visualize the clusters in matplotlib with a legend
+fig = plt.figure(figsize=(10, 8))
+ax = fig.add_subplot(111, projection="3d")
+for label, color in zip(unique_labels, colors):
+    if label == -1:
+        label_name = "Noise"
+        cluster_points = points[labels == label]
+    else:
+        label_name = f"Cluster {label}"
+        cluster_points = points[labels == label]
+    
+    ax.scatter(
+        cluster_points[:, 0],
+        cluster_points[:, 1],
+        cluster_points[:, 2],
+        c=[color[:3]],  # Use RGB only
+        label=label_name,
+        s=1
+    )
 
-# Separate the clusters for further analysis (e.g., filtering terrain vs tree trunks)
-for i in range(n_clusters):
-    cluster_points = points[labels == i]
-    print(f"Cluster {i} has {len(cluster_points)} points.")
-    # You can apply additional heuristics here to distinguish terrain from tree trunks based on height, etc.
-
-# Save the clustered point cloud (optional)
-o3d.io.write_point_cloud("/mnt/data/clustered_point_cloud.ply", pcd)
+# Set plot details
+ax.set_title("DBSCAN Clustered Point Cloud")
+ax.set_xlabel("X")
+ax.set_ylabel("Y")
+ax.set_zlabel("Z")
+ax.legend(loc="best", title="Clusters", markerscale=5)
+plt.show()
