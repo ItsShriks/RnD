@@ -156,6 +156,7 @@ HKU Mars Hong Kong University - PointNet
 # 16.12.24, 11:34:20
 
 - Contact Pranisha for the data
+  - Labelled and Annotated Tree Trunks to use them as a pkl file
 - Passthrough Filter
 - Elevation Model
   - Digital Surface
