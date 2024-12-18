@@ -1,4 +1,5 @@
 # RnD
+![Alt Text](Essentials/Gantt_Chart-Sheet_1.jpg)
 
 Work in Progress...🚧
 
