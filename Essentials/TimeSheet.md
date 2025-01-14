@@ -147,7 +147,7 @@ Find a way to visualise
 DigiCNN
 
 
-QGIS - Numnber of Trunks
+QGIS - Number of Trunks - 131
 
 CC
 Load the Model - Normals - SF Scalar Field - PlugINs - KAnnupus - 3dPoint Cloud Segmentation - ICP
@@ -162,3 +162,8 @@ HKU Mars Hong Kong University - PointNet
   - Digital Surface
   - Digital Terrain - Talha said National Ecological Obsrvatory Netowrk DTM is better
     - For Image Based
+
+
+# 14.01.25, 11:17:37
+
+
