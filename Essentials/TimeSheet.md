@@ -146,7 +146,7 @@ DigiCNN
 QGIS - Number of Trunks - 131
 
 CC
-Load the Model - Normals - SF Scalar Field - PlugINs - KAnnupus - 3dPoint Cloud Segmentation - ICP
+Load the Model - Normals - SF Scalar Field - PlugINs - CANUPO - 3dPoint Cloud Segmentation - ICP
 HKU Mars Hong Kong University - PointNet
 
 # 16.12.24, 11:34:20
@@ -164,7 +164,5 @@ HKU Mars Hong Kong University - PointNet
 - What is a GPKG ?
 - How to use GPKG as a reference and use it in the training dataset
 - If Gpkg is 2d dataset then can we use it as a reference and apply it on a 3d model
-- 
-
 
 
