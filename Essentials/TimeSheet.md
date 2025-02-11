@@ -123,17 +123,14 @@ CUDA Installation in Progress !!
 # 04.12.24, 12:28
 I don;t know if i am getting the proper classes !
 
-1. I don;t what is the platform to get data annotated ?
-2. IS it right to annoatate the data ?
+1. I don't know what is the platform to get data annotated ?
+2. Is it right to annoatate the data ?
 3. Make Visualisation of the data
-4.
-
 
 1. Entire ply as a input
 2. Get the models of one tree trunk and try it with \
 
-Check Kugus for the visualising data
-
+Check QGIS for the visualising data
 
 DBSScan adds a parameter in the class
 
@@ -145,7 +142,6 @@ Find a way to visualise
 - What are the current state of the art methods ot PointCloud Segmentation
 
 DigiCNN
-
 
 QGIS - Number of Trunks - 131
 
@@ -164,6 +160,11 @@ HKU Mars Hong Kong University - PointNet
     - For Image Based
 
 
-# 14.01.25, 11:17:37
+# 11.02.25, 11:17:37
+- What is a GPKG ?
+- How to use GPKG as a reference and use it in the training dataset
+- If Gpkg is 2d dataset then can we use it as a reference and apply it on a 3d model
+- 
+
 
 
