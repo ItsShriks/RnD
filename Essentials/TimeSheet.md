@@ -165,4 +165,7 @@ HKU Mars Hong Kong University - PointNet
 - How to use GPKG as a reference and use it in the training dataset
 - If Gpkg is 2d dataset then can we use it as a reference and apply it on a 3d model
 
-
+# To Read:
+- [Feature Extraction from Point Clouds](https://graphics.stanford.edu/courses/cs164-10-spring/Handouts/papers_gumhold.pdf)
+- [Surface Reconstruction from Point Clouds: A Survey and a Benchmark](https://arxiv.org/abs/2205.02413)
+-
