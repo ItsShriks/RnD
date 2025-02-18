@@ -1,51 +1,46 @@
 import torch
-from pointnet import PointNetSeg  # Assuming you have a correct PointNet class
-from torch.utils.data import DataLoader, Dataset
 import open3d as o3d
 import numpy as np
+from pointnet2_pytorch import pointnet2_utils as pn2_utils
 
-# Custom Dataset Class
-class PointCloudDataset(Dataset):
-    def __init__(self, file_path, num_points=1024):
-        # Load the point cloud
-        pcd = o3d.io.read_point_cloud(file_path)
-        self.points = np.asarray(pcd.points)
-        print(f"Loaded point cloud with shape: {self.points.shape}")  # Output the shape of the point cloud
-        
-        # Normalize or preprocess the points if needed
-        self.points = (self.points - self.points.mean(axis=0)) / self.points.std(axis=0)
-        
-        # Ensure that the number of points is consistent (e.g., 1024 points per cloud)
-        self.num_points = num_points
-        if self.points.shape[0] < self.num_points:
-            # Pad with zeros if the point cloud has fewer points than the expected number
-            padding = np.zeros((self.num_points - self.points.shape[0], 3))
-            self.points = np.vstack([self.points, padding])
-        elif self.points.shape[0] > self.num_points:
-            # Randomly sample points if the point cloud has more than the expected number
-            self.points = self.points[np.random.choice(self.points.shape[0], self.num_points, replace=False)]
+# Load your segmentation model
+num_classes = 3  # Change this based on your dataset
+model = PointNet2SegmentationModel(num_classes)
+model.eval()  # Set to evaluation mode
 
-    def __len__(self):
-        return 1  # Only one point cloud in this dataset
+# Load the point cloud file
+pcd = o3d.io.read_point_cloud("/Users/shrikar/Library/Mobile Documents/com~apple~CloudDocs/Sem III/R&D/RnD/dataset/Separated.ply")
+pcd = pcd.voxel_down_sample(voxel_size=0.02)  # Adjust voxel size for fewer points
+points = np.asarray(pcd.points)  # Extract point coordinates (N, 3)
 
-    def __getitem__(self, idx):
-        # Return the point cloud as a batch
-        return {"points": torch.tensor(self.points, dtype=torch.float32)}
-
-# Load the pre-trained model
-model = PointNet()  # Ensure PointNet is implemented and has an STN component if needed
-model.load_state_dict(torch.load("/home/shrikar/RnD/dbscan_model.pkl"))
-model.eval()
-
-# Load your data as a dataset
-dataset = PointCloudDataset("filtered_point_cloud.ply")
-dataloader = DataLoader(dataset, batch_size=1, shuffle=False)  # Batch size is 1 as we have only one point cloud
-
-# Make predictions and output results
-print("Starting prediction...")
+# Convert to PyTorch tensor and add batch dimension
+#xyz = torch.tensor(points, dtype=torch.float32).unsqueeze(0)  # Shape: (1, N, 3)
+xyz = torch.tensor(points, dtype=torch.float32).unsqueeze(0).permute(0, 2, 1)  # (1, 3, N)
+# Run the model for segmentation
 with torch.no_grad():
-    for batch_idx, batch in enumerate(dataloader):
-        point_cloud = batch["points"]
-        print(f"Point cloud shape before model: {point_cloud.shape}")  # Should be (1, num_points, 3)
-        labels = model(point_cloud)  # Perform forward pass
-        print(f"Batch {batch_idx + 1}: Predicted labels: {labels}")
+    logits = model(xyz.permute(0, 2, 1))  # Model expects (B, 3, N) format
+    predictions = torch.argmax(logits, dim=1).squeeze(0)  # Shape: (N,)
+
+# Convert predictions to NumPy
+pred_labels = predictions.cpu().numpy()
+
+# Assign labels as colors for visualization
+colors = np.random.rand(num_classes, 3)  # Random colors for each class
+pcd.colors = o3d.utility.Vector3dVector(colors[pred_labels])  # Apply colors
+
+# Save the segmented point cloud
+#o3d.io.write_point_cloud("segmented_output.ply", pcd)
+
+# Visualize the segmented point cloud
+o3d.visualization.draw_geometries([pcd], window_name="Segmented Point Cloud")
+
+print(f"Point Cloud Shape: {xyz.shape}")  # Should be (1, 3, N)
+print(f"Min, Max Points: {xyz.min()}, {xyz.max()}")
+print(f"Model Input Shape: {xyz.shape}")
+
+with torch.no_grad():
+    logits = model(xyz)  # If it crashes here, it's a memory issue
+print("Model Forward Pass Successful!")
+
+predictions = torch.argmax(logits, dim=1).squeeze(0)
+print(f"Predictions Shape: {predictions.shape}")
