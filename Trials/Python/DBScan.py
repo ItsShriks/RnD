@@ -10,7 +10,7 @@ pcd = o3d.io.read_point_cloud("filtered_point_cloud.ply")
 points = np.asarray(pcd.points)
 
 # Apply DBSCAN clustering
-db = DBSCAN(eps=0.05, min_samples=10).fit(points)  # Adjust eps and min_samples based on your data
+db = DBSCAN(eps=0.05, min_samples=800).fit(points)  # Adjust eps and min_samples based on your data
 
 # Get cluster labels for each point
 labels = db.labels_
@@ -46,5 +46,5 @@ o3d.visualization.draw_geometries([pcd, axis], window_name="DBSCAN Clusters with
 
 # Optionally, you can extract points belonging to specific clusters
 # For example, if you want to extract the points in the largest cluster (label 0):
-cluster_points = points[labels == 0]  # Adjust cluster label as needed
+cluster_points = points[labels == 0]
 print(cluster_points)
