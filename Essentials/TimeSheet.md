@@ -182,3 +182,13 @@ TO Read:
 [GPT Result](https://www.perplexity.ai/search/i-have-a-3d-point-cloud-datase-XAZSuJBsQSmXvHkvUmTYWg)
 
 ✅ Report Skeleton 
+
+
+# 19.02.25, 12:46:29
+
+- Find a dataset which is a photogrammetry one
+- Overlay the gpkg and slice all the points inside the labelled area
+- Consider all of them as STUMP
+- Repeat the same with Vegetation
+  **~Verified by Ahmad**
+
