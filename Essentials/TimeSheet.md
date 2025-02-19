@@ -171,6 +171,30 @@ TO Read:
 - Object Labelling
 - HKU Mars
 
+1.  Transformer-Based Architectures for Automated Annotation
+
+In 2024, Xiaoyan Qian presented a doctoral thesis introducing simplified, end-to-end trainable Transformer-based architectures for annotating 3D point clouds. These models enhance annotation quality by leveraging context-aware mechanisms to capture both local and global dependencies within the data.  ￼
+
+2. Context-Aware Transformer for Automatic Annotation
+
+Building upon prior works in 3D point cloud representation learning, researchers at HKU developed a Context-Aware Transformer model. This approach addresses the challenges posed by the sparse and unstructured nature of point clouds, aiming to improve automatic annotation processes.  ￼
+
+3. 3DVG-Transformer: Relation Modeling for Visual Grounding
+
+The 3DVG-Transformer is a relation-aware visual grounding method designed to fully utilize contextual clues for relation-enhanced proposal generation and cross-modal proposal disambiguation. This model has demonstrated superior performance on datasets like ScanRefer and Nr3D/Sr3D, especially in complex scenarios with multiple similar objects.  ￼
+
+4. Prototypical VoteNet for Few-Shot Object Detection
+
+Addressing the challenge of limited labeled data, HKU researchers introduced the Prototypical VoteNet. This model focuses on few-shot 3D point cloud object detection, enabling effective learning from a minimal number of examples.  ￼
+
+5. Geometry-Disentangled Attention Network (GDANet)
+
+The GDANet aims to improve point cloud understanding by treating different geometries, such as contours and flat areas, distinctly. This approach enhances the network’s ability to capture complementary geometric features, leading to better segmentation and labeling outcomes.  ￼
+
+6. BIM Reconstruction from 3D Point Clouds
+
+In the realm of Building Information Modeling (BIM), HKU researchers developed a semantic registration approach based on multimodal optimization and architectural design knowledge. This method facilitates the reconstruction of BIM from 3D point clouds, contributing to advancements in smart city applications.  ￼
+
 # 18.02.25, 16:04:55
 
 [GPT Result](https://www.perplexity.ai/search/i-have-a-3d-point-cloud-datase-XAZSuJBsQSmXvHkvUmTYWg)
