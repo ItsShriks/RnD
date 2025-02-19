@@ -181,14 +181,28 @@ TO Read:
 
 [GPT Result](https://www.perplexity.ai/search/i-have-a-3d-point-cloud-datase-XAZSuJBsQSmXvHkvUmTYWg)
 
-✅ Report Skeleton 
+✅ Report Skeleton
 
 
 # 19.02.25, 12:46:29
 
-- Find a dataset which is a photogrammetry one
-- Overlay the gpkg and slice all the points inside the labelled area
-- Consider all of them as STUMP
-- Repeat the same with Vegetation
+- Find a dataset which is a photogrammetry one - /Volumes/nfs/datasets/garrulus-arnsberg-forest/post-processing-results/processed-until-2024-07/2022-11-10_field-D/RGB-UTM32/RGB-pointcloud-143M.laz
+- Use this laz file and extract all the points inside the labelled area
+- Now use this extracted points file and the lidar file
+- Use ICP and align them both and then extract all the points which match (Can be done in Cloud Compare)
+- Assign a Index 1 to all the points which are matching and 9 to all the points which are not matching
+- Repeat the same for all VEGETATION
+- Assign a Index 2 to all the points which are matching and 9 to all the points which are not matching
+
+By now i should have
+Class Lable Index 0 - Terrain
+Class Lable Index 1 - Stumps
+Class Lable Index 2 - Vegetation
+Class Lable Index 9 - Everything Else
   **~Verified by Ahmad**
 
+
+PointNet does not directly accept csv data but it accepts the ply data and Charles the author of pointnet has published the code for the same.
+[CSV to Pointnet](https://github.com/charlesq34/3dmodel_feature/blob/master/io/write_hdf5.py)
+
+- CVAT Documentation
