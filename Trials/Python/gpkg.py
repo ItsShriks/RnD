@@ -1,50 +1,63 @@
 import geopandas as gpd
 import open3d as o3d
+from shapely.geometry import Point, MultiPolygon
 import numpy as np
 
-# Load the GPKG file (vegetation and stump data)
-gpkg = gpd.read_file("../../dataset/STUMP.gpkg")
-print(gpkg.head())  # Check the attributes
-print(f"GPKG CRS: {gpkg.crs}")  # Check CRS
+gpkg_file = "/home/shrikar/RnD/dataset/STUMP.gpkg"
+gdf = gpd.read_file(gpkg_file)
 
+print(f"GPKG CRS: {gdf.crs}")
 
-# Load the PLY point cloud file
-point_cloud = o3d.io.read_point_cloud("../../dataset/filtered_point_cloud.ply")
-points = np.asarray(point_cloud.points)
+ply_file = "/home/shrikar/RnD/dataset/RGB-D_wihtout ground_reprojected.ply"
+pcd = o3d.io.read_point_cloud(ply_file)
 
-vis = o3d.visualization.Visualizer()
-vis.create_window()
+print("Extracting points from ply")
+points = np.asarray(pcd.points)
 
-# Add the point cloud to the visualizer
-point_cloud.paint_uniform_color([0, 0, 0])  # Black color for the point cloud
-vis.add_geometry(point_cloud)
+ply_crs = "EPSG:25832"
+print(f"Assumed PLY CRS: {ply_crs}")
 
-for idx, row in gpkg.iterrows():
-    geom = row.geometry
-    print(f"Geometry {idx}: {geom}")  # Print the geometry for debugging
+if gdf.crs != ply_crs:
+    print("Reprojecting GPKG geometries to match PLY CRS...")
+    gdf = gdf.to_crs(ply_crs)
+else:
+    print("CRS is already the same for both files.")
 
-    if geom.geom_type == 'Point':  # If the geometry is a point (e.g., a stump or tree location)
-        # Convert point geometry to Open3D PointCloud
-        stump_point = o3d.geometry.PointCloud()
-        stump_point.points = o3d.utility.Vector3dVector(np.array([[geom.x, geom.y, 0]]))  # Assuming 2D points
-        stump_point.paint_uniform_color([1, 0, 0])  # Red color for stumps/vegetation
-        vis.add_geometry(stump_point)
+polygons = gdf['geometry']
+
+print("Checking first few points from the PLY file:")
+print(points[:5])  # Print first 5 points for debugging
+
+print("Extracting inside points")
+inside_points = []
+for point in points:
+    x, y, z = point
+    shapely_point = Point(x, y)
     
-    elif geom.geom_type == 'Polygon':  # If the geometry is a polygon (e.g., vegetation boundary)
-        # Convert polygon to a mesh or lineset to visualize
-        vertices = np.array([list(geom.exterior.coords)])
-        lines = [[i, i + 1] for i in range(len(vertices[0]) - 1)] + [[len(vertices[0]) - 1, 0]]
-        
-        # Create a LineSet for the polygon
-        line_set = o3d.geometry.LineSet()
-        line_set.points = o3d.utility.Vector3dVector(vertices[0])
-        line_set.lines = o3d.utility.Vector2iVector(lines)
-        line_set.paint_uniform_color([1, 0, 0])  # Red color for vegetation polygons
-        vis.add_geometry(line_set)
+    point_inside = False
+    for polygon in polygons:
+        if isinstance(polygon, MultiPolygon):
+            for subpolygon in polygon.geoms:
+                if subpolygon.contains(shapely_point):
+                    inside_points.append(point)
+                    point_inside = True
+                    break
+        elif polygon.contains(shapely_point):
+            inside_points.append(point)
+            point_inside = True
+            break
+    
+    # Debugging if a point is inside any polygon
+    if point_inside:
+        print(f"Point inside polygon: {point}")
 
-# Run the visualization
-vis.run()
-vis.destroy_window()
+print(f"Total points inside polygons: {len(inside_points)}")
 
-print(f"Point cloud contains {len(points)} points")
-print(f"GPKG contains {len(gpkg)} features")
+print("Saving the new ply")
+inside_points = np.array(inside_points)
+if inside_points.shape[0] > 0:
+    inside_pcd = o3d.geometry.PointCloud()
+    inside_pcd.points = o3d.utility.Vector3dVector(inside_points)
+    o3d.io.write_point_cloud("inside_points.ply", inside_pcd)
+else:
+    print("No points inside the labeled regions.")
