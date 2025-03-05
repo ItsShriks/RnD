@@ -3,34 +3,58 @@ import numpy as np
 from pyransac3d import Cylinder
 
 # Load the point cloud file
-pcd = o3d.io.read_point_cloud("/Users/shrikar/Library/Mobile Documents/com~apple~CloudDocs/Sem III/R&D/RnD/dataset/Separated.ply")
+pcd = o3d.io.read_point_cloud("/home/shrikar/RnD/dataset/Separated.ply")
 
 # Convert point cloud to NumPy array (N, 3)
 points = np.asarray(pcd.points)
 
+# Create a mask to track inlier points (initially all False)
+inlier_mask = np.zeros(points.shape[0], dtype=bool)
+
 # Create a Cylinder object
 cylinder = Cylinder()
 
-# Fit the cylinder to the point cloud
-center, axis, radius, inliers = cylinder.fit(points, thresh=0.05, maxIteration=1000)
+# Parameters
+max_iterations = 1000  # Max iterations for RANSAC
+min_inliers = 500  # Minimum points required to consider a valid cylinder
 
-# Extract the inlier points (points belonging to the detected cylinder)
-cylinder_points = points[inliers]
+# List to store all detected cylinders
+cylinder_points_list = []
 
-print(f"Cylinder center: {center}")
-print(f"Cylinder axis: {axis}")
-print(f"Cylinder radius: {radius}")
-print(f"Number of inlier points: {len(inliers)}")
+while True:
+    # Fit a cylinder to the remaining points
+    try:
+        center, axis, radius, inliers = cylinder.fit(points[~inlier_mask], thresh=thresh, maxIteration=max_iterations)
+        if len(inliers) < min_inliers:
+            break  # Stop if no significant cylinder is found
+        
+        # Update inlier mask
+        inlier_indices = np.where(~inlier_mask)[0][inliers]
+        inlier_mask[inlier_indices] = True
+        
+        # Store inlier points for coloring
+        cylinder_points_list.append(inlier_indices)
+    except:
+        break  # Stop if no more cylinders can be found
 
-# Create a new point cloud for the detected cylinder
-cylinder_pcd = o3d.geometry.PointCloud()
-cylinder_pcd.points = o3d.utility.Vector3dVector(cylinder_points)
+# Print number of detected cylinders
+print(f"Number of detected cylinders: {len(cylinder_points_list)}")
 
-# Assign color to highlight cylinder (e.g., red)
-cylinder_pcd.paint_uniform_color([1, 0, 0])  # Red color for visualization
+# Assign colors: Green for cylinder points, Black for everything else
+colors = np.zeros_like(points)  # Default black
+for inlier_indices in cylinder_points_list:
+    colors[inlier_indices] = [0, 1, 0]  # Green for cylinder points
 
-# Save the detected cylinder points to a new .ply file
-#o3d.io.write_point_cloud("detected_cylinder.ply", cylinder_pcd)
+# Apply colors to point cloud
+pcd.colors = o3d.utility.Vector3dVector(colors)
 
-# Visualize the original and detected cylinder
-o3d.visualization.draw_geometries([pcd, cylinder_pcd], window_name="Detected Cylinder")
+# Save the colored point cloud
+# o3d.io.write_point_cloud("colored_cylinders.ply", pcd)
+
+# Visualize the results
+
+vis = o3d.visualization.Visualizer()
+vis.create_window()
+vis.add_geometry(pcd)
+vis.run()
+vis.destroy_window()
