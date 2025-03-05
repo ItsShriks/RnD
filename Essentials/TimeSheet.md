@@ -210,7 +210,7 @@ PointNet does not directly accept csv data but it accepts the ply data and Charl
 # 05.03.25, 16:45:34
 
 CSF - 
-Resolution - 0.4
-Iterations - 500
-Threshold - 0.5
+Resolution - 0.15
+Iterations - 1000
+Threshold - 0.1
 
