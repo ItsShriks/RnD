@@ -206,3 +206,11 @@ PointNet does not directly accept csv data but it accepts the ply data and Charl
 [CSV to Pointnet](https://github.com/charlesq34/3dmodel_feature/blob/master/io/write_hdf5.py)
 
 - CVAT Documentation
+- 
+# 05.03.25, 16:45:34
+
+CSF - 
+Resolution - 0.4
+Iterations - 500
+Threshold - 0.5
+
