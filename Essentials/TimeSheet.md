@@ -214,3 +214,74 @@ Resolution - 0.15
 Iterations - 1000
 Threshold - 0.1
 
+# 09.03.2025, 14:56
+Label - Connected Components
+- Octree Level - 9
+- Min Points per component - 50
+- Clusters - 212
+
+Label - Connected Components
+- Octree Level - 9
+- Min Points per component - 100
+- Clusters - 212
+
+CC0
+
+Final RMS: 1.00611e-5 (computed on 5362 points)
+----------------
+Transformation matrix
+1.000	0.000	-0.000	-0.221
+-0.000	1.000	0.000	1.931
+0.000	-0.000	1.000	0.024
+0.000	0.000	0.000	1.000
+----------------
+Scale: fixed (1.0)
+----------------
+Theoretical overlap: 100%
+----------------
+This report has been output to Console (F8)
+
+
+CC 1
+Final RMS: 0.0870366 (computed on 3733 points)
+----------------
+Transformation matrix
+0.293	-0.081	-0.155	-8.707
+0.033	0.323	-0.107	4.864
+0.172	0.077	0.285	1.062
+0.000	0.000	0.000	1.000
+----------------
+Scale: 0.341431 (already integrated in above matrix!)
+----------------
+Theoretical overlap: 100%
+----------------
+This report has been output to Console (F8)
+
+
+CC 2
+
+Final RMS: 4.03817e-6 (computed on 3547 points)
+----------------
+Transformation matrix
+1.000	-0.000	0.000	0.221
+0.000	1.000	0.000	-1.931
+-0.000	-0.000	1.000	-0.024
+0.000	0.000	0.000	1.000
+----------------
+Scale: fixed (1.0)
+----------------
+Theoretical overlap: 100%
+----------------
+This report has been output to Console (F8)
+
+
+Terrain
+
+  precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00     36349
+           1       1.00      1.00      1.00    108785
+
+    accuracy                           1.00    145134
+   macro avg       1.00      1.00      1.00    145134
+weighted avg       1.00      1.00      1.00    145134

@@ -5,7 +5,7 @@ import numpy as np
 
 gpkg_file = "/home/shrikar/RnD/dataset/STUMP.gpkg"
 gdf = gpd.read_file(gpkg_file)
-extrusion_height = 2
+extrusion_height = 25
 plotter = pv.Plotter()
 
 def create_3d_polygon_mesh(polygon, height):
