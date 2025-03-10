@@ -206,10 +206,10 @@ PointNet does not directly accept csv data but it accepts the ply data and Charl
 [CSV to Pointnet](https://github.com/charlesq34/3dmodel_feature/blob/master/io/write_hdf5.py)
 
 - CVAT Documentation
-- 
+-
 # 05.03.25, 16:45:34
 
-CSF - 
+CSF -
 Resolution - 0.15
 Iterations - 1000
 Threshold - 0.1
@@ -218,7 +218,7 @@ Threshold - 0.1
 Label - Connected Components
 - Octree Level - 9
 - Min Points per component - 50
-- Clusters - 212
+- Clusters - 205
 
 Label - Connected Components
 - Octree Level - 9
@@ -273,15 +273,23 @@ Scale: fixed (1.0)
 Theoretical overlap: 100%
 ----------------
 This report has been output to Console (F8)
-
-
 Terrain
 
-  precision    recall  f1-score   support
+| Class | Precision | Recall | F1-Score | Support |
+|-------|-----------|--------|----------|---------|
+| 0     | 1.00      | 1.00   | 1.00     | 36,349  |
+| 1     | 1.00      | 1.00   | 1.00     | 108,785 |
+| **Accuracy** |       |        | **1.00** | 145,134 |
+| **Macro Avg** | 1.00 | 1.00   | 1.00     | 145,134 |
+| **Weighted Avg** | 1.00 | 1.00 | 1.00     | 145,134 |
 
-           0       1.00      1.00      1.00     36349
-           1       1.00      1.00      1.00    108785
 
-    accuracy                           1.00    145134
-   macro avg       1.00      1.00      1.00    145134
-weighted avg       1.00      1.00      1.00    145134
+# 10.03.25, 12:03:17
+- Professor Houben - Have the Validation/Evaluation ready by the next week
+- Don't Use RGB Data
+
+- The data is not a RGB-D Data, it is just a photogrammetry dataset
+
+- Make Visulisations proper
+
+- Always have at least 3 different views
