@@ -295,3 +295,7 @@ Terrain
 - Always have at least 3 different views
 
 - INput - Batch and Data set and the output will be segmented object
+- Input - Dataset and output will also be a dataset 
+
+- Downsampling - Open3D
+- pointcloud_classification/dataset/dataset_util.py
