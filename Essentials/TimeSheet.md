@@ -293,3 +293,5 @@ Terrain
 - Make Visulisations proper
 
 - Always have at least 3 different views
+
+- INput - Batch and Data set and the output will be segmented object
