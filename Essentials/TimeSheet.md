@@ -295,7 +295,14 @@ Terrain
 - Always have at least 3 different views
 
 - INput - Batch and Data set and the output will be segmented object
-- Input - Dataset and output will also be a dataset 
+- Input - Dataset and output will also be a dataset
 
 - Downsampling - Open3D
 - pointcloud_classification/dataset/dataset_util.py
+
+# 24/03/2025, 10:52:17
+
+- [Preparing JupyterHub Lab Server with Pytorch PointNet](https://github.com/fxia22/pointnet.pytorch)
+- quay.io/a2s-institute/ml-notebook:cuda12-pytorch-2.2.2
+
+DEPRECATION: Legacy editable install of pointnet==0.0.1 from file:///home/jovyan/pointnet.pytorch (setup.py develop) is deprecated. pip 25.1 will enforce this behaviour change. A possible replacement is to add a pyproject.toml or enable --use-pep517, and use setuptools >= 64. If the resulting installation is not behaving as expected, try using --config-settings editable_mode=compat. Please consult the setuptools documentation for more information. Discussion can be found at https://github.com/pypa/pip/issues/11457
