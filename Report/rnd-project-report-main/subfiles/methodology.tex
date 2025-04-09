@@ -1,0 +1,65 @@
+%!TEX root = ../report.tex
+\documentclass[../report.tex]{subfiles}
+
+\begin{document}
+    \section{\textcolor{yellow}{Methodology}}
+    \label{sec:methodology}
+    \subsection{Step I: Preprocessing}
+\begin{itemize}
+    \item \textbf{Input:} A \texttt{.pcd} (Point Cloud Data) file containing LiDAR scan data in (x, y, z) format.
+    \item \textbf{Processing:}
+    \begin{itemize}
+        \item \textit{Remove Outliers:} Eliminate noise and irrelevant points.
+        \item \textit{Normalize Data:} Standardize the point cloud for consistency.
+    \end{itemize}
+    \item \textbf{Tools Used:} Open3D
+\end{itemize}
+
+\subsection{Step II: Feature Extraction}
+Extracting key features to distinguish objects:
+\begin{itemize}
+    \item \textbf{Density:} Measures local point distribution.
+    \item \textbf{Curvature:} Identifies variations in surface shape.
+    \item \textbf{Height:} Helps differentiate objects based on elevation.
+    \item \textbf{Tools Used:} Open3D, PointNet
+\end{itemize}
+
+\subsection{Step III: Unsupervised Learning (Clustering)}
+Clustering data based on key properties:
+\begin{itemize}
+    \item \textbf{Cylindrical Density + Height $\rightarrow$ Trunks}
+    \item \textbf{Circular Curvature + Height $\rightarrow$ Stumps}
+    \item \textbf{High Density + Similar Height $\rightarrow$ Terrain}
+    \item \textbf{Techniques Used:} Point Clustering, DBScan
+\end{itemize}
+
+\subsection{Step IV: Classification}
+Classifying segments using machine learning:
+\begin{itemize}
+    \item \textbf{K-Means, DBScan} - Initial segmentation.
+    \item \textbf{Hierarchical Grouping} - Organizing clusters at different levels.
+    \item \textbf{Cloth Simulation Filter} - Separating ground from objects.
+    \item \textbf{Base Extraction} - Identifying object bases.
+    \item \textbf{PointNet++} - Deep learning model for classification.
+    \item \textbf{PyTorch} - Framework for implementing PointNet++.
+\end{itemize}
+
+\subsection{Step V: Validation}
+Evaluating classification performance using:
+\begin{itemize}
+    \item \textbf{IntraCluster Distance} - Compactness within clusters.
+    \item \textbf{Silhouette Coefficient} - Cluster assignment quality.
+    \item \textbf{Average Similarity Ratio} - Cluster similarity.
+    \item \textbf{Davies-Bouldin Index} - Cluster separation quality.
+    \item \textbf{Calinski-Harabasz Index} - Overall cluster distribution.
+\end{itemize}
+
+\subsection{Conclusion}
+This pipeline enables the automatic detection and classification of tree trunks, stumps, and terrain using LiDAR data combined with clustering and deep learning techniques.
+
+\end{document}
+%     Describe all conceptual details about your approach in this section.
+%     Add any necessary subsections to improve the presentation.
+
+%     Feel free to rename this section to better reflect the concrete topic you are discussing.
+% \end{document}

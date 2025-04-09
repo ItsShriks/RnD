@@ -1,0 +1,119 @@
+%!TEX root = ../report.tex
+\documentclass[../report.tex]{subfiles}
+
+\begin{document}
+    \section{Introduction}
+    \label{sec:introduction}
+
+    This is a template for MAS R\&D projects, based on \emph{IEEETran}.
+    Here are some preliminaries about some common things you need to do to use the template:
+    \begin{itemize}
+        \item Add your references to the file \emph{references.bib} and cite them as Mustermann and Smith \cite{referenceexample} (if there are more than three authors, cite as Mustermann et al. \cite{referenceexample}).
+        \item Refer to sections as Sec. \ref{sec:introduction}.
+        \item You can include figures as follows (note that the figure caption is below the figure).
+        \begin{figure}[ht]
+            \centering
+            \includegraphics[width=0.8\linewidth]{figures/b-it-logo.pdf}
+            \caption{My caption}
+            \label{fig:figureexample}
+        \end{figure}
+        Refer to figures as Fig. \ref{fig:figureexample}.
+        \item You can add tables as follows (note that the table caption is above the table).
+        \begin{table}[ht]
+            \caption{My caption}
+            \label{tab:tableexample}
+            \begin{tabular}{M{0.45\linewidth} M{0.45\linewidth}}
+                \hline
+                \cellcolor{gray!10!white} Header 1 & \cellcolor{gray!10!white} Header 2 \\\hline
+                Cell 1 & Cell 2 \\\hline
+                Cell 3 & Cell 4 \\\hline
+            \end{tabular}
+        \end{table}
+        Refer to tables as Tab. \ref{tab:tableexample}.
+        \item You can add equations as follows.
+        \begin{equation}
+            f(x) = \frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{1}{2}\left( \frac{x - \mu}{\sigma} \right)^2}
+            \label{eq:equationexample}
+        \end{equation}
+        Refer to equations as Eq. \ref{eq:equationexample}.
+    \end{itemize}
+
+    \subsection{Motivation}
+    \label{sec:introduction:motivation}
+\textcolor{yellow}{Imagine standing at the edge of a dense forest, looking out at a vast expanse of trees, vegetation, and natural beauty. Now, envision the challenge of understanding and analyzing the complex terrain hidden within that forest. This is the inspiration for this R\&D project. My mission is to develop a robust and efficient method to segment the forest terrain from the point cloud data obtained through LiDAR technology. This will involve accurately identifying and excluding objects on the forest surface, such as tree stumps, tree trunks, and dense vegetation. By doing so, my team can gain valuable insights into the terrain and its characteristics, paving the way for effective forest management and planning.
+
+\textcolor{yellow}{The forest terrain is rugged and uneven, with varying objects of different heights scattered throughout. This complexity makes it difficult to distinguish between the actual terrain and the objects on the forest floor. It requires advanced algorithms and techniques to accurately filter and process the LiDAR data, ensuring that the sensor captures only the relevant information. My goal is to develop such an algorithm.}
+
+\textcolor{yellow}{To overcome these challenges, I am delving into the state-of-the-art challenges and methods in LiDAR data analysis. I am also exploring various filtering, processing, and visualization techniques to make sense of the vast amount of data. I am aiming to automatically detect and segment the forest terrain without obstacles, providing a clear understanding of the forest's topography. This endeavor will significantly contribute to forest management, ecological research, and land-use planning by offering precise and actionable insights into the underlying terrain.
+    }
+    
+    \subsection{Problem Statement}
+    \label{sec:introduction:problem_statement}
+\textcolor{yellow}{This project aims to develop a robust classification system for point cloud data (PCD) obtained through LiDAR technology, focusing on analyzing specific ecological terrains. The approach begins with the acquisition of raw LiDAR data, which provides three-dimensional coordinates (x, y, z) of the points in the scanned area. Given that the accuracy and reliability of this data are crucial for subsequent analysis, the initial phase of the project involves a thorough cleaning process. Outliers, which can significantly skew the results, are removed to ensure a clean dataset. Following this, normalization is applied to standardize the data, allowing for consistent feature extraction and analysis across different data points. This preprocessing stage utilizes the Open3D library, which is particularly suited for handling and processing 3D point cloud data efficiently.}
+
+\textcolor{yellow}{Once the data is preprocessed, the next phase involves extracting key features from the cleaned point cloud data. The features of interest—density, curvature, and height—are selected for their relevance in distinguishing different structures within the terrain, such as trees, stumps, and the ground. These features are extracted using tools such as Open3D and PointNet, which facilitate the detailed analysis necessary for accurate classification. The extraction of these features is not just a technical step but a critical one, as it lays the groundwork for identifying the various elements within the terrain based on their geometric and spatial characteristics.}
+
+\textcolor{yellow}{With the extracted features in hand, the project moves into the phase of unsupervised learning, where clustering techniques are applied to group the data based on similarities in density, curvature, and height. These clusters represent different physical entities within the terrain, such as tree trunks, stumps, and the ground itself. The clustering algorithms, including DBScan and hierarchical clustering, are employed to identify and segment dense regions and overlapping local regions. This segmentation is crucial for differentiating the various components of the terrain, enabling a more detailed and accurate classification in the subsequent phases.
+
+Following clustering, the classification of these segmented clusters is performed. This stage involves further refining the segmentation to ensure that each cluster corresponds to a distinct class, such as tree trunks, stumps, or terrain. K-Means clustering is applied to segregate the clusters into specific regions, based on the characteristics identified during the unsupervised learning phase. Advanced methods like CSF for base extraction and PointNet++ are then used to process each group, ensuring that the classification is not only accurate but also scalable to handle large datasets. PyTorch serves as the primary framework for implementing these classification models, offering the necessary flexibility and computational power.
+
+The final phase of the project is dedicated to validation, which is essential to assess the effectiveness and accuracy of the classification system. Multiple validation metrics, including the silhouette coefficient, Davies-Bouldin index, and Calinski-Harabasz index, are utilized to evaluate the quality of the clusters. These metrics provide insights into intra-cluster distance, average similarity ratios, and the dispersion between and within clusters, ensuring that the classifications are well-defined and reliable. Additionally, spatial validation techniques are applied to confirm that the classification is consistent across different spatial domains, which is crucial for practical applications in ecological studies.}
+    \subsection{Proposed Approach}
+    
+    \label{sec:introduction:proposed_approach}
+
+    \subsection{Step I: Preprocessing}
+\begin{itemize}
+    \item \textbf{Input:} A \texttt{.pcd} (Point Cloud Data) file containing LiDAR scan data in (x, y, z) format.
+    \item \textbf{Processing:}
+    \begin{itemize}
+        \item \textit{Remove Outliers:} Eliminate noise and irrelevant points.
+        \item \textit{Normalize Data:} Standardize the point cloud for consistency.
+    \end{itemize}
+    \item \textbf{Tools Used:} Open3D
+\end{itemize}
+
+\subsection{Step II: Feature Extraction}
+Extracting key features to distinguish objects:
+\begin{itemize}
+    \item \textbf{Density:} Measures local point distribution.
+    \item \textbf{Curvature:} Identifies variations in surface shape.
+    \item \textbf{Height:} Helps differentiate objects based on elevation.
+    \item \textbf{Tools Used:} Open3D, PointNet
+\end{itemize}
+
+\subsection{Step III: Unsupervised Learning (Clustering)}
+Clustering data based on key properties:
+\begin{itemize}
+    \item \textbf{Cylindrical Density + Height $\rightarrow$ Trunks}
+    \item \textbf{Circular Curvature + Height $\rightarrow$ Stumps}
+    \item \textbf{High Density + Similar Height $\rightarrow$ Terrain}
+    \item \textbf{Techniques Used:} Point Clustering, DBScan
+\end{itemize}
+
+\subsection{Step IV: Classification}
+Classifying segments using machine learning:
+\begin{itemize}
+    \item \textbf{K-Means, DBScan} - Initial segmentation.
+    \item \textbf{Hierarchical Grouping} - Organizing clusters at different levels.
+    \item \textbf{Cloth Simulation Filter} - Separating ground from objects.
+    \item \textbf{Base Extraction} - Identifying object bases.
+    \item \textbf{PointNet++} - Deep learning model for classification.
+    \item \textbf{PyTorch} - Framework for implementing PointNet++.
+\end{itemize}
+
+\subsection{Step V: Validation}
+Evaluating classification performance using:
+\begin{itemize}
+    \item \textbf{IntraCluster Distance} - Compactness within clusters.
+    \item \textbf{Silhouette Coefficient} - Cluster assignment quality.
+    \item \textbf{Average Similarity Ratio} - Cluster similarity.
+    \item \textbf{Davies-Bouldin Index} - Cluster separation quality.
+    \item \textbf{Calinski-Harabasz Index} - Overall cluster distribution.
+\end{itemize}
+
+\subsection{Conclusion}
+This pipeline enables the automatic detection and classification of tree trunks, stumps, and terrain using LiDAR data combined with clustering and deep learning techniques.
+
+
+\end{document}
