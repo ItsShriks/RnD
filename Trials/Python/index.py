@@ -23,5 +23,5 @@ def create_index_csv(input_dir, output_path="Index.csv"):
     print(f"\n✅ Index saved at: {index_csv_path}")
 
 # Example usage
-input_directory = "/Users/shrikar/Library/Mobile Documents/com~apple~CloudDocs/Sem IV/R&D/RnD/Trials/Python/grids_2.5/csv"
+input_directory = '/Users/shrikar/Library/Mobile Documents/com~apple~CloudDocs/Sem IV/R&D/RnD/Trials/Python/grids_2.5/padded_4096'
 create_index_csv(input_directory)
