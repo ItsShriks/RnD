@@ -6,19 +6,37 @@ from tqdm import tqdm
 from scipy.spatial import KDTree
 
 def estimate_normals_and_curvature(pcd, radius=0.05, max_nn=30):
+    # Estimate normals
     pcd.estimate_normals(search_param=o3d.geometry.KDTreeSearchParamHybrid(radius=radius, max_nn=max_nn))
-    pcd.orient_normals_consistent_tangent_plane(30)
+
+    if len(pcd.points) >= 4:
+        pcd.orient_normals_consistent_tangent_plane(30)
+    else:
+        print("⚠️ Skipping normal orientation (not enough points).")
+
+    # Ensure points are available to the whole function
+    points = np.asarray(pcd.points)
 
     kdtree = o3d.geometry.KDTreeFlann(pcd)
     curvatures = []
 
-    for i in range(len(pcd.points)):
-        _, idx, _ = kdtree.search_knn_vector_3d(pcd.points[i], 30)
-        neighbors = np.asarray(pcd.points)[idx, :]
-        cov = np.cov(neighbors.T)
-        eigvals, _ = np.linalg.eigh(cov)
-        eigvals = np.sort(eigvals)
-        curvature = eigvals[0] / (eigvals.sum() + 1e-8)
+    for i in range(len(points)):
+        _, idx, _ = kdtree.search_knn_vector_3d(points[i], 30)
+        neighbors = points[idx, :]
+
+        # Ensure at least 3 unique neighbors
+        if len(neighbors) < 3 or np.linalg.matrix_rank(neighbors - neighbors.mean(axis=0)) < 3:
+            curvatures.append(0.0)
+            continue
+
+        try:
+            cov = np.cov(neighbors.T)
+            eigvals, _ = np.linalg.eigh(cov)
+            eigvals = np.sort(eigvals)
+            curvature = eigvals[0] / (eigvals.sum() + 1e-8)
+        except np.linalg.LinAlgError:
+            curvature = 0.0
+
         curvatures.append(curvature)
 
     return np.array(curvatures)
