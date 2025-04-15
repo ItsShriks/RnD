@@ -3,10 +3,13 @@ import shutil
 import random
 
 def split_files_into_folders(input_dir, output_dir, train_ratio=0.7, validate_ratio=0.15, test_ratio=0.15):
-    # Ensure the output directories exist
-    train_dir = os.path.join(output_dir, 'train')
-    validate_dir = os.path.join(output_dir, 'validate')
-    test_dir = os.path.join(output_dir, 'test')
+    # Get the last part of the input_dir (e.g., "npy")
+    base_name = os.path.basename(os.path.normpath(input_dir))
+
+    # Create output subfolder names with prefix
+    train_dir = os.path.join(output_dir, f'{base_name}_train')
+    validate_dir = os.path.join(output_dir, f'{base_name}_validate')
+    test_dir = os.path.join(output_dir, f'{base_name}_test')
 
     os.makedirs(train_dir, exist_ok=True)
     os.makedirs(validate_dir, exist_ok=True)
@@ -41,7 +44,7 @@ def split_files_into_folders(input_dir, output_dir, train_ratio=0.7, validate_ra
           f"{len(test_files)} files in {test_dir}")
 
 # Example usage
-input_dir = '/Users/shrikar/Library/Mobile Documents/com~apple~CloudDocs/Sem IV/R&D/RnD/dataset/grids/grids_2.5/padded_4096'  # Replace with your source directory
-output_dir = '/Users/shrikar/Library/Mobile Documents/com~apple~CloudDocs/Sem IV/R&D/RnD/dataset/grids/grids_2.5'  # Replace with your destination directory
+input_dir = '/Users/shrikar/Library/Mobile Documents/com~apple~CloudDocs/Sem IV/R&D/RnD/dataset/grids_2.5/npy'
+output_dir = '/Users/shrikar/Library/Mobile Documents/com~apple~CloudDocs/Sem IV/R&D/RnD/dataset/grids_2.5'
 
 split_files_into_folders(input_dir, output_dir)

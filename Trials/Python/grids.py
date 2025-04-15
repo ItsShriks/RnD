@@ -4,11 +4,11 @@ import pandas as pd
 import os
 
 # Load the point cloud
-pcd = o3d.io.read_point_cloud('/Users/shrikar/Library/Mobile Documents/com~apple~CloudDocs/Sem III/R&D/RnD/dataset/filtered_point_cloud.ply')
+pcd = o3d.io.read_point_cloud('/Users/shrikar/Library/Mobile Documents/com~apple~CloudDocs/Sem IV/R&D/RnD/dataset/filtered_point_cloud.ply')
 points = np.asarray(pcd.points)
 
 # Parameters
-grid_size = 2.0  # Size of square in meters
+grid_size = 2.5  # Size of square in meters
 x_total = 68.0   # Total width in meters
 y_total = 80.0   # Total height in meters
 
@@ -33,7 +33,7 @@ print(f"Grid layout: {x_cells} columns × {y_cells} rows")
 grid_groups = df.groupby(["grid_x", "grid_y"])
 
 # Create 'grids' output directory
-output_dir = "grids_2.0"
+output_dir = '/Users/shrikar/Library/Mobile Documents/com~apple~CloudDocs/Sem IV/R&D/RnD/dataset/grids_2.5/grids_2.5_ply'
 os.makedirs(output_dir, exist_ok=True)
 
 # Save each grid cell as .ply file

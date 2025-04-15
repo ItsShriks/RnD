@@ -131,7 +131,7 @@ def process_all_plys(input_dir, output_dir, z_thresholds=[0.0, 1.0, 2.0]):
         process_ply_to_csv(in_path, out_path, z_thresholds)
 
 # Example paths and z-thresholds
-input_ply_dir = '/Users/shrikar/Library/Mobile Documents/com~apple~CloudDocs/Sem IV/R&D/RnD/dataset/grids/grids_2.5/grids_2.5_ply'
-output_csv_dir = '/Users/shrikar/Library/Mobile Documents/com~apple~CloudDocs/Sem IV/R&D/RnD/dataset/grids/grids_2.5/grids_2.5_labels'
+input_ply_dir = '/Users/shrikar/Library/Mobile Documents/com~apple~CloudDocs/Sem IV/R&D/RnD/dataset/grids_2.5/grids_2.5_ply'
+output_csv_dir = '/Users/shrikar/Library/Mobile Documents/com~apple~CloudDocs/Sem IV/R&D/RnD/dataset/grids_2.5/grids_2.5_csv'
 z_thresholds = [0.0, 1.0, 2.0]  # Adjust these thresholds as needed
 process_all_plys(input_ply_dir, output_csv_dir, z_thresholds)
