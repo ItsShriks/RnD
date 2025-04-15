@@ -33,7 +33,7 @@ print(f"Grid layout: {x_cells} columns × {y_cells} rows")
 grid_groups = df.groupby(["grid_x", "grid_y"])
 
 # Create 'grids' output directory
-output_dir = "grids_2.5"
+output_dir = "grids_2.0"
 os.makedirs(output_dir, exist_ok=True)
 
 # Save each grid cell as .ply file
