@@ -62,9 +62,9 @@ def assign_labels_based_on_z(pcd, z_thresholds=[0.0, 1.0, 2.0]):
     # Assign labels based on z-value thresholds
     for i, z in enumerate(z_values):
         if z < z_thresholds[0]:
-            labels[i] = 0  # Label for low z-values
+            labels[i] = 1  # Label for low z-values
         elif z < z_thresholds[1]:
-            labels[i] = 1  # Label for mid-range z-values
+            labels[i] = 2  # Label for mid-range z-values
         elif z < z_thresholds[2]:
             labels[i] = 2  # Label for high z-values
         else:
@@ -131,7 +131,7 @@ def process_all_plys(input_dir, output_dir, z_thresholds=[0.0, 1.0, 2.0]):
         process_ply_to_csv(in_path, out_path, z_thresholds)
 
 # Example paths and z-thresholds
-input_ply_dir = '/Users/shrikar/Library/Mobile Documents/com~apple~CloudDocs/Sem IV/R&D/RnD/dataset/grids_2.5/grids_2.5_ply'
-output_csv_dir = '/Users/shrikar/Library/Mobile Documents/com~apple~CloudDocs/Sem IV/R&D/RnD/dataset/grids_2.5/grids_2.5_csv'
+input_ply_dir = '/Users/shrikar/Library/Mobile Documents/com~apple~CloudDocs/Sem IV/R&D/RnD/dataset/grids_1.0/grids_1.0_ply'
+output_csv_dir = '/Users/shrikar/Library/Mobile Documents/com~apple~CloudDocs/Sem IV/R&D/RnD/dataset/grids_1.0/grids_1.0_csv'
 z_thresholds = [0.0, 1.0, 2.0]  # Adjust these thresholds as needed
 process_all_plys(input_ply_dir, output_csv_dir, z_thresholds)

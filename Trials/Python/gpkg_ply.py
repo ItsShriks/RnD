@@ -3,9 +3,9 @@ import pyvista as pv
 from shapely.geometry import Polygon, MultiPolygon
 import numpy as np
 
-gpkg_file = "/home/shrikar/RnD/dataset/STUMP.gpkg"
+gpkg_file = '/Users/shrikar/Library/Mobile Documents/com~apple~CloudDocs/Sem IV/R&D/RnD/dataset/STUMP.gpkg'
 gdf = gpd.read_file(gpkg_file)
-extrusion_height = 25
+extrusion_height = 1
 plotter = pv.Plotter()
 
 def create_3d_polygon_mesh(polygon, height):
@@ -14,12 +14,12 @@ def create_3d_polygon_mesh(polygon, height):
         points_3d = np.hstack([points, np.zeros((points.shape[0], 1))])  # Add z=0 to each point
         points_3d_with_height = np.hstack([points, np.full((points.shape[0], 1), height)])  # Add z=height to each point
         points_3d = np.vstack([points_3d, points_3d_with_height])
-        
+
         faces = []
         for i in range(len(points) - 1):
             faces.append([4, i, (i + 1) % len(points), i + len(points), (i + 1) % len(points) + len(points)])
         faces = np.array(faces)
-        
+
         mesh = pv.PolyData(points_3d, faces)
         return mesh
     return None
@@ -55,7 +55,7 @@ centroid_mesh["point_scalars"] = np.array([1])
 combined_mesh += centroid_mesh
 
 # Save the combined mesh to a .ply file
-ply_file_path = "/home/shrikar/RnD/dataset/STUMP.ply"
+ply_file_path = '/Users/shrikar/Library/Mobile Documents/com~apple~CloudDocs/Sem IV/R&D/RnD/dataset/STUMP.gpkg'
 combined_mesh.save(ply_file_path)
 
 print(f"Saved the 3D model with centroid to {ply_file_path}")
