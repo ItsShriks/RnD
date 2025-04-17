@@ -1257,3 +1257,18 @@ Total points: 887138
 filtered_point_cloud.ply: 725669 points → 81.81% of total
 Stump.ply: 86655 points → 9.77% of total
 Separated.ply: 74814 points → 8.43% of total
+
+RANSAC + CSF >> DTM Shift
+
+Final RMS: 5.01494 (computed on 50000 points)
+----------------
+Transformation matrix
+0.999	0.018	0.039	-105.120
+-0.021	0.998	0.057	7.501
+-0.037	-0.058	0.998	4.196
+0.000	0.000	0.000	1.000
+----------------
+Scale: fixed (1.0)
+----------------
+Theoretical overlap: 100%
+----------------
