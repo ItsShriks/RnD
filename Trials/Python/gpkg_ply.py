@@ -55,7 +55,7 @@ centroid_mesh["point_scalars"] = np.array([1])
 combined_mesh += centroid_mesh
 
 # Save the combined mesh to a .ply file
-ply_file_path = '/Users/shrikar/Library/Mobile Documents/com~apple~CloudDocs/Sem IV/R&D/RnD/dataset/STUMP.gpkg'
+ply_file_path = '/Users/shrikar/Library/Mobile Documents/com~apple~CloudDocs/Sem IV/R&D/RnD/dataset/Stump_10.ply'
 combined_mesh.save(ply_file_path)
 
 print(f"Saved the 3D model with centroid to {ply_file_path}")

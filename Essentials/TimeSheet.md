@@ -1248,3 +1248,12 @@ Saved: grids_2.5/cell_33_35.ply with 144 points
 Saved: grids_2.5/cell_33_36.ply with 79 points
 Saved: grids_2.5/cell_33_37.ply with 284 points
 Saved: grids_2.5/cell_33_38.ply with 241 points
+
+
+# 17.04.25, 09:58
+
+Total points: 887138
+
+filtered_point_cloud.ply: 725669 points → 81.81% of total
+Stump.ply: 86655 points → 9.77% of total
+Separated.ply: 74814 points → 8.43% of total
