@@ -44,7 +44,7 @@ def split_files_into_folders(input_dir, output_dir, train_ratio=0.7, validate_ra
           f"{len(test_files)} files in {test_dir}")
 
 # Example usage
-input_dir = '/Users/shrikar/Library/Mobile Documents/com~apple~CloudDocs/Sem IV/R&D/RnD/dataset/grids_1.0/padded_1024'
-output_dir = '/Users/shrikar/Library/Mobile Documents/com~apple~CloudDocs/Sem IV/R&D/RnD/dataset/grids_1.0'
+input_dir = '/Users/shrikar/Library/Mobile Documents/com~apple~CloudDocs/Sem IV/R&D/RnD/dataset/grids_5.0/grids_5.0_csv'
+output_dir = '/Users/shrikar/Library/Mobile Documents/com~apple~CloudDocs/Sem IV/R&D/RnD/dataset/grids_5.0'
 
 split_files_into_folders(input_dir, output_dir)

@@ -33,7 +33,7 @@ def pad_all_csvs_in_dir(input_dir, output_dir):
         pad_csv_to_1024(input_path, output_path)
 
 # --- ✅ USAGE ---
-input_directory = '/Users/shrikar/Library/Mobile Documents/com~apple~CloudDocs/Sem IV/R&D/RnD/dataset/grids_1.0/grids_1.0_csv'
-output_directory = '/Users/shrikar/Library/Mobile Documents/com~apple~CloudDocs/Sem IV/R&D/RnD/dataset/grids_1.0/padded_1024'
+input_directory = '/Users/shrikar/Library/Mobile Documents/com~apple~CloudDocs/Sem IV/R&D/RnD/dataset/grids_5.0/grids_5.0_csv'
+output_directory = '/Users/shrikar/Library/Mobile Documents/com~apple~CloudDocs/Sem IV/R&D/RnD/dataset/grids_5.0/padded'
 
 pad_all_csvs_in_dir(input_directory, output_directory)

@@ -1,116 +1,142 @@
 import numpy as np
-import rasterio
 import open3d as o3d
-from scipy.spatial import cKDTree
-import matplotlib.pyplot as plt
+from sklearn.neighbors import NearestNeighbors
+import rasterio
+import logging
 
-def load_dtm_tif(filename, resolution=0.009, origin=(0.0, 0.0)):
-    """
-    Load a non-georeferenced DTM raster and generate (x, y, z) points.
-    """
-    with rasterio.open(filename) as src:
-        dtm = src.read(1)
+# Set up logging for debugging purposes
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
-    rows, cols = np.indices(dtm.shape)
-    xs = cols * resolution + origin[0]
-    ys = rows * resolution + origin[1]
+def load_ply(file_path):
+    """ Load a PLY point cloud and handle errors. """
+    try:
+        pcd = o3d.io.read_point_cloud(file_path)
+        if not pcd.is_empty():
+            logging.info(f"Successfully loaded PLY file: {file_path}")
+            return pcd
+        else:
+            raise ValueError("Loaded PLY is empty!")
+    except Exception as e:
+        logging.error(f"Error loading PLY file: {file_path} - {e}")
+        raise
 
-    points = np.vstack((xs.ravel(), ys.ravel(), dtm.ravel())).T
+def load_dtm_as_point_cloud(dtm_file):
+    """ Load DTM (GeoTIFF) and convert it into a point cloud. """
+    try:
+        with rasterio.open(dtm_file) as src:
+            dtm_array = src.read(1)  # Read the first band (elevation)
+            transform = src.transform
+            rows, cols = np.meshgrid(np.arange(dtm_array.shape[0]), np.arange(dtm_array.shape[1]), indexing='ij')
+            xs, ys = rasterio.transform.xy(transform, rows, cols)
+            xs = np.array(xs).flatten()
+            ys = np.array(ys).flatten()
+            zs = dtm_array.flatten()
 
-    # Remove NaN or nodata values
-    valid_mask = np.isfinite(points[:, 2])
-    return points[valid_mask]
+            # Filter out invalid points (NaN or zero values)
+            valid_points = ~np.isnan(zs)
+            xs, ys, zs = xs[valid_points], ys[valid_points], zs[valid_points]
 
-def load_ply_file(filename):
-    """
-    Load PLY point cloud using Open3D.
-    """
-    pcd = o3d.io.read_point_cloud(filename)
-    return np.asarray(pcd.points)
+            dtm_points = np.vstack((xs, ys, zs)).T
+            dtm_cloud = o3d.geometry.PointCloud()
+            dtm_cloud.points = o3d.utility.Vector3dVector(dtm_points)
 
-def compare_elevation(dtm_points, ply_points, sample_size=10000):
-    """
-    Compare elevation between DTM and PLY point clouds using nearest neighbor.
-    """
-    if len(dtm_points) > sample_size:
-        indices = np.random.choice(len(dtm_points), sample_size, replace=False)
-        dtm_sample = dtm_points[indices]
-    else:
-        dtm_sample = dtm_points
+            logging.info(f"Successfully loaded and converted DTM: {dtm_file}")
+            return dtm_cloud
+    except Exception as e:
+        logging.error(f"Error loading or processing DTM file: {dtm_file} - {e}")
+        raise
 
-    tree = cKDTree(ply_points[:, :2])
-    distances, nearest_indices = tree.query(dtm_sample[:, :2])
+def apply_transformation(pcd, transformation_matrix):
+    """ Apply a transformation matrix to the point cloud. """
+    try:
+        pcd.transform(transformation_matrix)
+        logging.info("Transformation applied successfully to the PLY point cloud.")
+    except Exception as e:
+        logging.error(f"Error applying transformation to point cloud: {e}")
+        raise
 
-    matched_ply_z = ply_points[nearest_indices][:, 2]
-    dtm_z = dtm_sample[:, 2]
+def compute_rms_error(pcd, dtm_cloud):
+    """ Compute RMS error between two point clouds. """
+    try:
+        distances = pcd.compute_point_cloud_distance(dtm_cloud)
+        rms_error = np.sqrt(np.mean(np.array(distances) ** 2))
+        logging.info(f"RMS Error: {rms_error}")
+        return rms_error
+    except Exception as e:
+        logging.error(f"Error computing RMS error: {e}")
+        raise
 
-    elevation_diff = dtm_z - matched_ply_z
+def compare_z_values(pcd, dtm_cloud):
+    """ Compare Z-values (elevation) between transformed PLY and DTM. """
+    try:
+        ply_xyz = np.asarray(pcd.points)
+        dtm_xyz = np.asarray(dtm_cloud.points)
 
-    return elevation_diff, dtm_sample, matched_ply_z
+        nn = NearestNeighbors(n_neighbors=1)
+        nn.fit(dtm_xyz[:, :2])  # Use only X, Y coordinates for matching
+        dist, indices = nn.kneighbors(ply_xyz[:, :2])
 
-def print_stats(diff):
-    print("Elevation Difference Statistics (DTM - PLY):")
-    print(f"Mean Difference: {np.mean(diff):.3f} m")
-    print(f"Standard Deviation: {np.std(diff):.3f} m")
-    print(f"RMSE: {np.sqrt(np.mean(diff**2)):.3f} m")
-    print(f"Min: {np.min(diff):.3f} m")
-    print(f"Max: {np.max(diff):.3f} m")
+        z_diff = ply_xyz[:, 2] - dtm_xyz[indices, 2]
+        rms_z_diff = np.sqrt(np.mean(z_diff ** 2))
 
-def plot_histogram(diff):
-    plt.figure()
-    plt.hist(diff, bins=100, color='steelblue', edgecolor='black')
-    plt.title("Histogram of Elevation Differences (DTM - PLY)")
-    plt.xlabel("Height Difference (m)")
-    plt.ylabel("Frequency")
-    plt.grid(True)
-    plt.show()
+        logging.info(f"RMS Z-Error: {rms_z_diff}")
+        return z_diff, rms_z_diff
+    except Exception as e:
+        logging.error(f"Error comparing Z-values: {e}")
+        raise
 
-def plot_elevation_comparison(dtm_z, ply_z):
-    plt.figure(figsize=(8, 6))
-    plt.scatter(dtm_z, ply_z, s=1, alpha=0.5)
-    plt.plot([min(dtm_z), max(dtm_z)], [min(dtm_z), max(dtm_z)], 'r--')
-    plt.xlabel("DTM Elevation (m)")
-    plt.ylabel("PLY Elevation (m)")
-    plt.title("DTM vs PLY Elevation Comparison")
-    plt.grid(True)
-    plt.axis('equal')
-    plt.show()
+def calculate_statistical_analysis(z_diff):
+    """ Perform statistical analysis on the Z-difference. """
+    try:
+        mean_z_diff = np.mean(z_diff)
+        std_z_diff = np.std(z_diff)
+        max_z_diff = np.max(z_diff)
+        min_z_diff = np.min(z_diff)
 
-def plot_spatial_difference(dtm_sample, diff):
-    plt.figure(figsize=(10, 8))
-    plt.scatter(dtm_sample[:, 0], dtm_sample[:, 1], c=diff, cmap='coolwarm', s=2)
-    plt.colorbar(label='Elevation Difference (m)')
-    plt.title("Spatial Map of Elevation Differences (DTM - PLY)")
-    plt.xlabel("X (Local or UTM)")
-    plt.ylabel("Y (Local or UTM)")
-    plt.axis('equal')
-    plt.grid(True)
-    plt.show()
+        logging.info(f"Mean Z-Difference: {mean_z_diff}")
+        logging.info(f"Standard Deviation of Z-Difference: {std_z_diff}")
+        logging.info(f"Maximum Z-Difference: {max_z_diff}")
+        logging.info(f"Minimum Z-Difference: {min_z_diff}")
+    except Exception as e:
+        logging.error(f"Error performing statistical analysis: {e}")
+        raise
 
 def main():
-    # 🔧 Set your file paths here
-    dtm_file = '/Users/shrikar/Library/Mobile Documents/com~apple~CloudDocs/Sem IV/R&D/RnD/Large-files/RGB-UTM32/DTM-source-9mm.tif'
-    ply_file = '/Users/shrikar/Library/Mobile Documents/com~apple~CloudDocs/Sem IV/R&D/RnD/Trials/terrain/ransac_ground_points.ply'
+    try:
+        # Load the original PLY file
+        pcd = load_ply('/Users/shrikar/Library/Mobile Documents/com~apple~CloudDocs/Sem IV/R&D/RnD/Trials/terrain/ransac_ground_points.ply')
 
-    # ⚙️ Set resolution (in meters) and optional origin (X0, Y0)
-    resolution = 0.009  # 9 mm per pixel
-    origin = (0.0, 0.0)  # Change if your DTM starts elsewhere
+        # Define the ICP transformation matrix
+        transformation_matrix = np.array([
+            [0.999, 0.018, 0.039, -105.120],
+            [-0.021, 0.998, 0.057, 7.501],
+            [-0.037, -0.058, 0.998, 4.196],
+            [0, 0, 0, 1]
+        ])
 
-    print("Loading DTM...")
-    dtm_points = load_dtm_tif(dtm_file, resolution=resolution, origin=origin)
-    print(f"Loaded {len(dtm_points)} points from DTM")
+        # Apply the transformation to the point cloud
+        apply_transformation(pcd, transformation_matrix)
 
-    print("Loading PLY...")
-    ply_points = load_ply_file(ply_file)
-    print(f"Loaded {len(ply_points)} points from PLY")
+        # Save the transformed PLY (optional)
+        o3d.io.write_point_cloud("transformed_ply.ply", pcd)
 
-    print("Comparing elevation...")
-    diff, dtm_sample, matched_ply_z = compare_elevation(dtm_points, ply_points)
+        # Visualize the transformed point cloud
+        o3d.visualization.draw_geometries([pcd])
 
-    print_stats(diff)
-    plot_histogram(diff)
-    plot_elevation_comparison(dtm_sample[:, 2], matched_ply_z)
-    plot_spatial_difference(dtm_sample, diff)
+        # Load the DTM (GeoTIFF)
+        dtm_cloud = load_dtm_as_point_cloud('/Users/shrikar/Library/Mobile Documents/com~apple~CloudDocs/Sem IV/R&D/RnD/Large-files/RGB-UTM32/DTM-source-9mm.tif')
+
+        # Compute RMS error between the PLY and DTM
+        rms_error = compute_rms_error(pcd, dtm_cloud)
+
+        # Compare Z-values (elevation) between transformed PLY and DTM
+        z_diff, rms_z_diff = compare_z_values(pcd, dtm_cloud)
+
+        # Perform statistical analysis on the Z-difference
+        calculate_statistical_analysis(z_diff)
+
+    except Exception as e:
+        logging.error(f"An error occurred in the main process: {e}")
 
 if __name__ == "__main__":
     main()
