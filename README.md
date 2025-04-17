@@ -8,8 +8,8 @@ Work in Progress...🚧
 - ✅ **M2 Data Collection and Pre-processing**
 - ✅ **M3 Initial Model Implementation and Training**
 - ✅ **M4 Model Evaluation and Optimization**
-- ✅ **M5 Post Processing and Refinement*b
-- 🟨 **M6 Documentation
+- ✅ **M5 Post Processing and Refinementb**
+- 🟨 M6 Documentation
 
 ## Work Packages
 
@@ -21,5 +21,5 @@ Work in Progress...🚧
 - ✅ **WP6 Retrain and optimize the Machine Learning Model**
 - ✅ **WP7 Post-Processing and Smoothing of the data**
 - ✅ **WP8 Parameter tuning and optimize the model**
-- 🟨 **WP9 Evaluation
-- 🟨 **WP10 Documentation and troubleshooting
+- 🟨 WP9 Evaluation
+- 🟨 WP10 Documentation and troubleshooting
