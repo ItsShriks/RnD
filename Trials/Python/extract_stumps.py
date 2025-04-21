@@ -36,5 +36,5 @@ overlapping_pcd = o3d.geometry.PointCloud()
 overlapping_pcd.points = o3d.utility.Vector3dVector(overlapping_points)
 o3d.visualization.draw_geometries([overlapping_pcd], window_name="Overlapping Points")
 
-# Uncomment to save the overlapping points to a PLY file
+# To save the overlapping points to a PLY file
 # o3d.io.write_point_cloud("overlapping_points.ply", overlapping_pcd)

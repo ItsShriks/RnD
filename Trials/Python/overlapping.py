@@ -41,7 +41,7 @@ def main(ply_file1, ply_file2, distance_threshold=0.01):
     else:
         print("✅ No overlapping points found.")
 
-# ----------- Replace with your file paths ------------
+# ----------- FILE PATHS ------------
 ply_file1 = "path_to_first.ply"
 ply_file2 = "path_to_second.ply"
 # -----------------------------------------------------

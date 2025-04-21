@@ -41,7 +41,7 @@ def convert_ply_dir_to_off(input_dir, output_dir, poisson_depth=9, density_thres
         except Exception as e:
             print(f"  ❌ Failed to convert {ply_path.name}: {e}")
 
-# Example usage:
-input_folder = "/Users/shrikar/RnD/dataset/dataset_class/else/bad_train"         # Replace with your folder path
-output_folder = "/Users/shrikar/RnD/dataset/dataset_class/else/train"       # Desired output folder
+
+input_folder = "/Users/shrikar/RnD/dataset/dataset_class/else/bad_train"
+output_folder = "/Users/shrikar/RnD/dataset/dataset_class/else/train"
 convert_ply_dir_to_off(input_folder, output_folder)

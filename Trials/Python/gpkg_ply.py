@@ -44,7 +44,7 @@ for index, row in gdf.iterrows():
             if mesh:
                 all_meshes.append(mesh)
 
-# Combine all the meshes
+
 combined_mesh = all_meshes[0] if all_meshes else None
 for mesh in all_meshes[1:]:
     combined_mesh = combined_mesh.merge(mesh)
@@ -54,13 +54,12 @@ centroid_mesh = pv.PolyData(centroids)
 centroid_mesh["point_scalars"] = np.array([1])
 combined_mesh += centroid_mesh
 
-# Save the combined mesh to a .ply file
 ply_file_path = '/Users/shrikar/Library/Mobile Documents/com~apple~CloudDocs/Sem IV/R&D/RnD/dataset/Stump_10.ply'
 combined_mesh.save(ply_file_path)
 
 print(f"Saved the 3D model with centroid to {ply_file_path}")
 
-# Calculate the bounding box dimensions
+
 bounds = combined_mesh.bounds
 width = bounds[1] - bounds[0]
 height = bounds[3] - bounds[2]
@@ -71,7 +70,6 @@ print(f"Width = {width} meters")
 print(f"Height = {height} meters")
 print(f"Depth = {depth} meters")
 
-# Optionally, display the plot
 plotter.add_mesh(combined_mesh, show_edges=True, color="lightblue")
 plotter.add_points(centroids, color="red", point_size=10)
 plotter.show()

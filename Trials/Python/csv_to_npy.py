@@ -2,7 +2,7 @@ import os
 import numpy as np
 
 def convert_csvs_to_npys(input_dir, output_dir):
-    # Create output directory if it doesn't exist
+
     os.makedirs(output_dir, exist_ok=True)
 
     print(f"\n📁 Input Directory: {input_dir}")
@@ -18,7 +18,6 @@ def convert_csvs_to_npys(input_dir, output_dir):
                 npy_filename = filename.replace('.csv', '.npy')
                 npy_path = os.path.join(output_dir, npy_filename)
 
-                # Load CSV with header skipped
                 data = np.loadtxt(csv_path, delimiter=',', skiprows=1)
 
                 # Save as .npy
