@@ -4,7 +4,7 @@ import open3d as o3d
 import os
 
 # Load the point cloud
-pcd = o3d.io.read_point_cloud('/Users/shrikar/Library/Mobile Documents/com~apple~CloudDocs/Sem IV/R&D/RnD/dataset/filtered_point_cloud.ply')
+pcd = o3d.io.read_point_cloud('/Users/shrikar/RnD/dataset/Separated.ply')
 points = np.asarray(pcd.points)
 
 # Parameters
@@ -33,7 +33,9 @@ print(f"Grid layout: {x_cells} columns × {y_cells} rows")
 grid_groups = df.groupby(["grid_x", "grid_y"])
 
 # Create 'grids' output directory
-output_dir = '/Users/shrikar/Library/Mobile Documents/com~apple~CloudDocs/Sem IV/R&D/RnD/dataset/grids_' + str(grid_size) + '/grids_' + str(grid_size) + '_ply'
+output_dir = '/Users/shrikar/RnD/dataset/grids_' + str(grid_size) + '/grids_' + str(grid_size) + '_ply'
+#output_dir = '/Users/shrikar/RnD/dataset/stumps'
+
 os.makedirs(output_dir, exist_ok=True)
 
 # Save each grid cell as .ply file
