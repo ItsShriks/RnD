@@ -1,0 +1,29 @@
+%!TEX root = ../report.tex
+\documentclass[../report.tex]{subfiles}
+
+\begin{document}
+    \section{Experimental Approach}
+    This section describes the experimental approach to developing and modeling a training pipeline for terrain segmentation from the 3-D point cloud LiDAR dataset. This approach consists of several steps, including data collection, pre-processing, evaluation, validation, and finally, the conclusion based on the experiments.
+    
+    \subsection{Tools and Environment Setup}
+    The project environment was established using Anaconda to ensure reproducibility and consistency. A dedicated environment with all dependencies was maintained and shared via GitHub. Core tools included CloudCompare for 3D point cloud visualization and preprocessing, Open3D for Python-based processing, and MATLAB for supplementary analysis. SciKit-learn supported clustering and data preprocessing, while the Point Cloud Library (PCL) was employed for specialized point cloud operations during experimentation.
+
+    \subsection{Data Pre Processing and Preparation}
+    The initial dataset comprised 3D LiDAR point clouds of Field-D, captured by the Garrulus team’s UAV in a local coordinate system, without georeferencing or RGB data. It included point clouds, polygon meshes, and VTK files. A 100×100×100 m Region of Interest (ROI) was selected using CloudCompare for focused analysis, and exported as a polygon mesh for better cross-platform compatibility.
+
+    The dataset contained several invalid points (NaN and infinite), which were retained but ignored during processing in Open3D to avoid loss of potentially useful information. Further cropping was done based on visible fencing boundaries, and the cleaned polygon mesh was finalized as a benchmark for subsequent processing and experiments.
+    
+    \subsection{Segmentation & Clustering Techniques}
+    
+	\subsection{Challenges Faced}
+	\subsection{Visualization & Analysis}
+	\subsection{Model Experiments}
+	%8.	Conclusion & Future Work
+    
+
+\end{document}
+%     Describe all conceptual details about your approach in this section.
+%     Add any necessary subsections to improve the presentation.
+
+%     Feel free to rename this section to better reflect the concrete topic you are discussing.
+% \end{document}

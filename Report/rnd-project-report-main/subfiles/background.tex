@@ -1,0 +1,39 @@
+%!TEX root = ../report.tex
+\documentclass[../report.tex]{subfiles}
+
+\begin{document}
+    \section{Background}
+    \label{sec:background}
+This section briefly overviews the key tools, techniques, and algorithms employed in this research, which are integral to point cloud processing, analysis, and classification.
+
+\subsection{Iterative Closest Point (ICP)}
+
+ICP is a major algorithm used to align two-point clouds. It iteratively minimizes the difference between the source and target point clouds by finding the optimal rotation and translation. The algorithm assumes that an initial rough alignment is available and progressively refines the pose by minimizing a distance metric (typically the Euclidean distance) between corresponding points. ICP is fundamental in applications like 3D registration, SLAM (Simultaneous Localization and Mapping), and scene reconstruction.
+
+\subsection{CloudCompare}
+
+CloudCompare\cite{ColoudCompare} is an open-source 3D point cloud processing software known for its robust support for point cloud and mesh comparison, registration, and visualization. It provides various manual and automatic processing tools, including filtering, segmentation, distance computation, and statistical analysis. CloudCompare supports various file formats and includes plugins like CANUPO for advanced classification. It is a powerful visualization and preprocessing platform in many LiDAR and photogrammetry-based workflows.
+
+\subsection{Scalar Fields}
+
+Scalar fields in point cloud processing refer to assigning scalar values to individual points based on computed attributes such as curvature, density, height, or intensity. These values provide additional semantic information that can be used for segmentation, classification, or feature extraction. Visualization of scalar fields allows for straightforward interpretation of spatial patterns, while numerical thresholds help filter or cluster based on specific properties.
+
+\subsection{CANUPO (Classifier of Advanced Numerics for Unstructured Pointclouds)}
+
+CANUPO is a supervised machine learning plugin integrated with CloudCompare, explicitly designed for classifying 3D point clouds. It uses multi-scale dimensionality features derived from local neighborhoods of points to distinguish between natural and artificial structures (e.g., vegetation, ground, buildings). By training a model on labeled examples, CANUPO can highly accurately classify new data points, making it particularly effective in natural environments such as forests or mountainous regions.
+
+\subsection{Cloth Simulation Filter (CSF)}
+
+The Cloth Simulation Filter\cite{ClothSF} is a ground segmentation algorithm that simulates draping a virtual cloth over an inverted point cloud. As the cloth settles over the lowest points (representing the ground), it forms a surface separating ground and non-ground points. CSF is beneficial in outdoor and unstructured environments where traditional height-based filters fail due to terrain irregularities. It is effective for preprocessing in terrain modeling and object isolation tasks.
+
+\subsection{RANSAC (Random Sample Consensus)}
+
+RANSAC is a robust model-fitting algorithm used to estimate the parameters of a mathematical model from a dataset containing outliers\cite{RANSAC}. It works by repeatedly selecting random subsets of the data, fitting a model, and evaluating how many points fit this model within a predefined threshold. RANSAC is commonly used in plane fitting, line detection, and geometric shape recognition within point clouds, as it effectively handles noisy data and partial observations.
+
+\subsection{Open3D}
+
+Open3D is an open-source library developed for 3D data processing, particularly focused on point cloud, mesh, and RGB-D image processing. It provides tools for I/O operations, visualization, filtering, transformation, feature extraction, and deep learning integration. Open3D supports modern algorithms such as ICP, RANSAC, and voxel-based downsampling and integrates well with machine learning frameworks like PyTorch. It is widely used in academic research and industry due to its flexibility, performance, and ease of use in Python and C++ environments.
+
+    % This is an optional section in which you can introduce concepts, terms, or methods that are important for understanding your approach and that would not directly fit in Sec. \ref{sec:methodology}.
+    % If you do not need this section, comment out the respective line in \emph{report.tex}.
+\end{document}
