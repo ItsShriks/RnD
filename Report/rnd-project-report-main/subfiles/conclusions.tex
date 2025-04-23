@@ -4,13 +4,21 @@
 \begin{document}
     \section{Conclusions}
     \label{sec:conclusions}
+    The classification task using the PointNet model encountered significant limitations when trained on CSV file formats that included padded entries. The padding values, which were numerically represented as zero, conflicted with the actual class label for terrain, also encoded as zero. This overlap introduced ambiguity during training, resulting in reduced model performance and learning instability. To address this, the dataset was reformatted into the .off file structure, which encapsulates both mesh and vertex information, thereby eliminating the need for zero-padding and improving the clarity and quality of input data. This adjustment facilitated more reliable model training and enhanced classification outcomes.
 
-    \subsection{Summary}
-    \label{sec:conclusions:summary}
+    For the segmentation task, the PointNet++ architecture was employed; however, it yielded a suboptimal accuracy of 36.15\%. This limited performance is likely attributed to the algorithmic approach adopted for dataset labeling. The labeling strategy, while efficient, may have introduced inconsistencies or inaccuracies, particularly in differentiating between complex forest elements such as stumps, terrain, and vegetation. These inaccuracies could have hindered the model’s ability to generalize effectively across the various classes. The findings suggest that while deep learning-based segmentation has potential, its success is highly contingent upon the precision of input data and the reliability of the labeling process.
 
-    \subsection{Contributions}
-    \label{sec:conclusions:contributions}
+    % \subsection{Summary}
+    % \label{sec:conclusions:summary}
+
+    % \subsection{Contributions}
+    % \label{sec:conclusions:contributions}
 
     \subsection{Future Work}
     \label{sec:conclusions:future_work}
+    To enhance the reliability and accuracy of segmentation results, future work should prioritize the manual labeling of the dataset to generate a fully validated ground truth. Although this process is time-consuming, it is feasible with the aid of reference data such as RGB imagery and photogrammetry outputs. Incorporating these supplementary data sources can significantly improve the precision of labels by providing contextual and visual information, which is otherwise absent in purely geometric datasets.
+
+    In addition, the MATLAB Deep Learning Toolbox presents a robust framework for tasks involving forest segmentation and can serve as a benchmark for evaluating the performance of alternative approaches. Its integrated workflows and support for a variety of deep learning architectures make it a valuable resource for both prototyping and large-scale experimentation.
+    
+    Automation of the end-to-end pipeline also holds substantial promise for future development. Leveraging the Robot Operating System (ROS), it is possible to design nodes that automate data preprocessing, model training, and deployment using state-of-the-art algorithms. This would streamline the overall process, reduce manual intervention, and enable more consistent and scalable model training for real-time applications in forest environments.
 \end{document}

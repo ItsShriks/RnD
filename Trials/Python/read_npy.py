@@ -1,7 +1,7 @@
 import numpy as np
 
 # Replace 'your_file.npy' with the path to your file
-data = np.load('/Users/shrikar/RnD/dataset/npy/ransac.npy', allow_pickle=True)
+data = np.load('/Users/shrikar/RnD/dataset/dataset_seg/dataset_csf/chunk_0.npy', allow_pickle=True)
 
 print(data.shape)  # Check the shape of the array
 print(data.dtype)  # Check the data type
