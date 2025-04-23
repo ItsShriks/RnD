@@ -47,6 +47,13 @@ Imagine standing inside a dense forest, looking at a vast expanse of trees, vege
     
     \subsection{Problem Statement}
     \label{sec:introduction:problem_statement}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.4\textwidth]{rnd-project-report-main/figures/Original_data.png}
+        \label{raw_data}
+        \caption{Original LiDAR Data}
+    \end{figure}
+    
 The project addresses the challenge of accurately segmenting terrain from LiDAR point cloud data in complex forest environments. Raw LiDAR scans capture a dense collection of 3D points representing not just the ground but also a variety of objects, such as tree trunks, stumps, and dense vegetation. The primary problem lies in distinguishing the actual terrain from these overlying objects, given the ruggedness and heterogeneity of forest floors. Existing methods often struggle with transformation invariance, scalability, high computational demands, and the need for large labeled datasets, resulting in suboptimal segmentation and classification performance. This project aims to develop a potent and efficient classification system that can automatically clean, process, and segment LiDAR point cloud data to accurately identify and separate terrain from other objects, thereby enabling improved ecological analysis and forest management.
     \subsection{Proposed Approach}
     
@@ -55,14 +62,13 @@ The project adopts a multi-stage, unsupervised learning pipeline for point cloud
 \subsubsection{Data Acquisition and Preprocessing:}
 Raw LiDAR point cloud data is collected, providing 3D coordinates for each scanned point. The data undergoes cleaning to remove outliers and normalization to standardize features, ensuring consistency and reliability for downstream analysis. The Open3D library is utilized for efficient point cloud processing.
 \subsubsection{Feature Extraction:}
-Key geometric features—density, curvature, and height—are extracted from the cleaned data. These features are selected for their effectiveness in differentiating terrain from objects like tree trunks and stumps. Tools such as Open3D and PointNet are used for detailed feature analysis.
+Key geometric features—density, curvature, and height—are extracted from the cleaned data. These features are selected for their effectiveness in differentiating terrain from objects like tree trunks and stumps. Tools such as Open3D and PointNet are used for detailed feature analysis.\cite{Open3D_Library}\cite{PointNet}
 \subsubsection{Unsupervised Clustering and Segmentation:}
-Clustering algorithms, including DBScan and hierarchical clustering, are applied to group points based on feature similarity. This step segments the point cloud into clusters corresponding to different physical entities within the terrain, such as ground, stumps, and trunks.
+Clustering algorithms, including DBScan and hierarchical clustering, are applied to group points based on feature similarity. This step segments the point cloud into clusters corresponding to different physical entities within the terrain, such as ground, stumps, and trunks.\cite{DBSCAN}\cite{DBSCan_Grammarly}
 \subsubsection{Cluster Classification:}
-Further refinement is achieved through K-Means clustering, categorizing the segmented clusters into distinct classes. Advanced methods like Cloth Simulation Filtering (CSF) for ground extraction and PointNet++ for deep feature learning are employed to enhance classification accuracy and scalability. PyTorch serves as the primary framework for implementing these models.
+Further refinement is achieved through K-Means clustering, categorizing the segmented clusters into distinct classes. Advanced methods like Cloth Simulation Filtering (CSF) for ground extraction and PointNet++ for deep feature learning are employed to enhance classification accuracy and scalability. PyTorch serves as the primary framework for implementing these models.\cite{ClothSF}\cite{PointNet++}
 \subsubsection{Validation and Evaluation:}
-The effectiveness of the segmentation and classification is assessed using multiple validation metrics, including the silhouette coefficient, Davies-Bouldin index, and Calinski-Harabasz index. These metrics evaluate cluster cohesion and separation. Spatial validation ensures consistency across different regions, supporting practical ecological applications.
-
+The effectiveness of the segmentation and classification is assessed using multiple validation metrics, including the silhouette coefficient, Davies-Bouldin index, and Calinski-Harabasz index. These metrics evaluate cluster cohesion and separation. Spatial validation ensures consistency across different regions, supporting practical ecological applications.\cite{Davies-Bouldin}\cite{Calinski}
 This code pipeline is designed to overcome the limitations of existing methods by ensuring transformation invariance, reducing reliance on labeled data through unsupervised learning, promoting scalability via architecture-agnostic design, and optimizing performance for large-scale, real-world forest datasets. The outcome is a validated segmentation model that provides actionable insights for forest management, ecological research, and land-use planning.
 
 \subsection{Conclusion}

@@ -4,13 +4,14 @@
 \begin{document}
 \section{Evaluation}
 \label{sec:evaluation}
-    \subsection{Original Dataset}
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.4\textwidth]{rnd-project-report-main/figures/Original_data.png}
-        \caption{Original LiDAR Data Visualization}
-    \end{figure}
-    The figure represents a visualization of the original LiDAR point cloud data captured from a UAV-mounted sensor system over a forested area. The data is visualized using a color-coded scheme to represent different spatial distributions, where shades of blue and green indicate variations in surface elevation and structure density.
+    % \subsection{Original Dataset}
+    % \begin{figure}[H]
+    %     \centering
+    %     \includegraphics[width=0.4\textwidth]{rnd-project-report-main/figures/Original_data.png}
+    %     \caption{Original LiDAR Data Visualization}
+    % \end{figure}
+    
+    The figure\ref{raw_data} represents a visualization of the original LiDAR point cloud data captured from a UAV-mounted sensor system over a forested area. The data is visualized using a color-coded scheme to represent different spatial distributions, where shades of blue and green indicate variations in surface elevation and structure density.
     
     The dense central region of the point cloud signifies the forest floor and lower vegetation layers, while the vertically extended, less dense structures—predominantly colored green—correspond to taller vegetation such as trees. The presence of vertical lines and scattered points further suggests canopy-level vegetation and possibly sparse outliers from surrounding terrain features or minor alignment inaccuracies.
     
@@ -18,7 +19,7 @@
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.4\textwidth]{rnd-project-report-main/figures/filtered_point_cloud.png}
-    \caption{Filtered Point Cloud after Clustering}
+    \caption{Filtered Point Cloud after Cropping}
 \end{figure}
 
     \subsection{DBScan Trials}
@@ -44,7 +45,7 @@
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.4\textwidth]{rnd-project-report-main/figures/RANSAC.png}
-        \caption{Another View of RANSAC Result}
+        \caption{RANSAC Result - Top View}
     \end{figure}
     The segmentation of ground and non-ground points within the forest point cloud was conducted using two complementary methodologies: a supervised learning strategy employing a Random Forest Classifier and a model-based approach utilizing RANSAC plane fitting.
     
@@ -60,43 +61,45 @@
     \includegraphics[width=0.4\textwidth]{rnd-project-report-main/figures/PointNetClass.png}
     \caption{PointNetClass output}
 \end{figure}
+        \noindent\textbf{Valid accuracy:  59.73\%}
+        
 
-    Valid accuracy:  59.73\%
-    
-    In the classification task, the dataset utilized was in the .off file format, which encapsulates mesh information comprising vertices and faces for each sample representing classes such as terrain, stumps, and miscellaneous objects. While the inclusion of face data alongside vertices provides a richer geometric context, integrating face features directly into the PointNet architecture introduced challenges. PointNet is inherently designed to process unordered point sets, and the structured nature of mesh faces conflicted with this requirement, leading to inconsistencies during training and a potential reduction in classification precision.
+    In the classification task, the dataset utilized was in the .off file format, which encapsulates mesh information comprising vertices and faces for each sample representing classes such as terrain, stumps, and miscellaneous objects. While the inclusion of face data alongside vertices provides a richer geometric context, integrating face features directly into the PointNet architecture introduced challenges. PointNet is inherently designed to process unordered point sets, and the structured nature of mesh faces conflicted with this requirement, leading to inconsistencies during training and a potential reduction in classification precision.\cite{pointnetclass}
     
     To address this, synthetic faces were generated based on the vertices alone, enabling a more uniform and consistent feature set across the dataset. This approach allowed the classifier to leverage structural information derived from the spatial configuration of points without introducing irregularities associated with original mesh face data. As a result, the training process was stabilized and model performance improved in terms of classification accuracy and generalization. This refinement enhanced the effectiveness of PointNet in distinguishing between different structural categories present in the forest environment.
 \subsection{PointNet++ Segmentation}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.4\textwidth]{rnd-project-report-main/figures/PointNetSeg_output.png}
-    \caption{PointNetSeg output}
+    \caption{PointNet++ Segmentation Batch Size - 128, Epochs - 64}
 \end{figure}
+
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.7\linewidth]{rnd-project-report-main//figures/PointNetSeg_bs128_ep251.png}
-    \caption{PointNetSeg bs128 ep251}
-    \label{fig:enter-label}
+    \includegraphics[width=0.7\linewidth]{rnd-project-report-main/figures/PointNetSeg_bs128_ep251.png}
+    \caption{PointNet++ Segmentation Batch Size - 128, Epochs - 251}
+    \label{fig:pointnetseg_bs128_ep251}
 \end{figure}
-Test Accuracy: 34.14%
+    \noindent\textbf{Test Accuracy: 34.14\%}
 
 \begin{figure}
     \centering
     \includegraphics[width=0.7\linewidth]{rnd-project-report-main/figures/PointNetSeg_bs128.png}
-    \caption{PointNetSeg bs128}
-    \label{fig:enter-label}
+    \caption{PointNet++ Segmentation Batch Size - 128}
+    \label{fig:pointnetseg_bs128}
 \end{figure}
-Test Accuracy: 36.15%
+\noindent\textbf{Test Accuracy: 36.15\%}
 
 In the segmentation phase, the dataset was spatially divided into grid-based subregions to facilitate localized processing and annotation. Each grid segment was labeled into one of three predefined classes: terrain, stump, and non-terrain or everything else. Two distinct terrain extraction approaches were employed to generate ground truth for segmentation.
 
 The first method utilized RANSAC-based plane fitting to identify terrain points. This approach estimated the ground surface by fitting a planar model and labeling points within a certain proximity to this surface as terrain. All remaining points above the threshold were considered non-terrain. The second approach employed the Cloth Simulation Filter (CSF), a model inspired by cloth physics, to simulate a draped surface over the point cloud. Points below this simulated cloth were classified as terrain, while the rest were treated as non-terrain.
 
-Following terrain extraction, the segmented point clouds were further refined by identifying stump-like structures from previously extracted .ply files. These were algorithmically labeled and assigned a class index of 1, while terrain points were labeled as 0. All remaining non-terrain points—either identified through RANSAC or CSF—were grouped under the class label 2. This structured labeling enabled effective training and evaluation of segmentation models across diverse forest structures.
+Following terrain extraction, the segmented point clouds were further refined by identifying stump-like structures from previously extracted .ply files. These were algorithmically labeled and assigned a class index of 1, while terrain points were labeled as 0. All remaining non-terrain points—either identified through RANSAC or CSF—were grouped under the class label 2. This structured labeling enabled effective training and evaluation of segmentation models across diverse forest structures.\cite{Pytorch_Pointnet_Pointnet2}
 
 \begin{table}[h!]
 \centering
+
 \begin{tabular}{cccccc}
 \toprule
 X & Y & Z & Label & Curvature & Density \\
@@ -105,12 +108,14 @@ X & Y & Z & Label & Curvature & Density \\
 \bottomrule
 \end{tabular}
 \caption{Sample point cloud data with features}
+\label{tab:datasample}
 \end{table}
+
 \begin{figure}
     \centering
     \includegraphics[width=0.7\linewidth]{rnd-project-report-main/figures/PointNetSeg_grids.png}
     \caption{PointNetSeg grids}
-    \label{fig:enter-label}
+    \label{fig:pointnetseg_grids}
 \end{figure}
-
+    \noindent\textbf{Test Accuracy: 86.77%}
 \end{document}
