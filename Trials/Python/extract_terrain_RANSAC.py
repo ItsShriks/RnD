@@ -6,13 +6,40 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import classification_report
 from sklearn.pipeline import make_pipeline
 import os
+import matplotlib.pyplot as plt
+
+def plot_with_legend_and_scale(ground_points, non_ground_points, save_path):
+    fig, ax = plt.subplots(figsize=(10, 8))
+
+    # Project to 2D (e.g., x, y)
+    ax.scatter(non_ground_points[:, 0], non_ground_points[:, 1], c='red', s=1, label='Non-Ground')
+    ax.scatter(ground_points[:, 0], ground_points[:, 1], c='green', s=1, label='Ground')
+
+    # Add legend and scale
+    ax.legend(loc='upper left')
+    ax.set_title("Ground vs Non-Ground Segmentation")
+    ax.set_xlabel("X")
+    ax.set_ylabel("Y")
+
+    # Add a simple scale bar (e.g., 1 meter)
+    scale_length = 1  # meters
+    xlim = ax.get_xlim()
+    ylim = ax.get_ylim()
+    ax.plot([xlim[0] + 0.05*(xlim[1]-xlim[0]), xlim[0] + 0.05*(xlim[1]-xlim[0]) + scale_length],
+            [ylim[0] + 0.05*(ylim[1]-ylim[0])]*2, 'k-', lw=2)
+    ax.text(xlim[0] + 0.05*(xlim[1]-xlim[0]), ylim[0] + 0.07*(ylim[1]-ylim[0]), f"{scale_length} m")
+
+    plt.axis('equal')
+    plt.tight_layout()
+    plt.savefig(save_path, dpi=300)
+    plt.close()
 
 def load_ply_file(file_path):
     pcd = o3d.io.read_point_cloud(file_path)
     points = np.asarray(pcd.points)
     return points
 
-file_path = "/home/shrikar/RnD/dataset/filtered_point_cloud.ply"
+file_path = '/Users/shrikar/RnD/dataset/filtered_point_cloud.ply'
 points = load_ply_file(file_path)
 
 x = points[:, 0]
@@ -60,7 +87,7 @@ non_ground_pcd.points = o3d.utility.Vector3dVector(non_ground_points)
 ground_pcd.paint_uniform_color([0, 1, 0])
 non_ground_pcd.paint_uniform_color([1, 0, 0])
 
-output_dir = "/home/shrikar/RnD/Trials/terrain"
+output_dir = "/Users/shrikar/RnD/Snaps"
 
 if not os.path.exists(output_dir):
     os.makedirs(output_dir)
@@ -118,7 +145,7 @@ def save_visualization_image(pcds, save_path):
 
 o3d.visualization.draw_geometries([ransac_ground_pcd, ransac_non_ground_pcd])
 
-save_visualization_image([ground_pcd, non_ground_pcd], "/home/shrikar/RnD/Trials/terrain/ground_non_ground_visualization.jpg")
-save_visualization_image([ransac_ground_pcd, ransac_non_ground_pcd], "/home/shrikar/RnD/Trials/terrain/ransac_visualization.jpg")
-
+save_visualization_image([ground_pcd, non_ground_pcd], "/Users/shrikar/RnD/Snaps/ground_non_ground_visualization.jpg")
+save_visualization_image([ransac_ground_pcd, ransac_non_ground_pcd], "/Users/shrikar/RnD/Snaps/ransac_visualization.jpg")
+plot_with_legend_and_scale(ground_points, non_ground_points, "/Users/shrikar/RnD/Snaps/ground_non_ground_with_legend.jpg")
 print("Visualization images saved.")
