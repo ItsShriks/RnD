@@ -52,16 +52,17 @@ width, height = image.size
 
 # Use a better font if available
 try:
-    font = ImageFont.truetype("arial.ttf", 24)
+    font = ImageFont.truetype("arial.ttf", 64)
 except:
     font = ImageFont.load_default()
+
 
 # 1. Add text annotation (top-left)
 text = f"Each color represents a different DBSCAN cluster.\nBlack = Noise. Total clusters: {num_clusters} \neps = 0.5\nmin_samples = 100"
 draw.text((10, 10), text, fill="black", font=font)
 
 # 2. Add a scale bar (bottom-right)
-bar_length_pixels = 100  # represents 1 meter
+bar_length_pixels = 500  # represents 1 meter
 bar_height = 10
 margin = 20
 
@@ -73,7 +74,7 @@ y_end = height - margin
 draw.rectangle([(x_start, y_start), (x_end, y_end)], fill="black")
 
 # Label the scale
-scale_label = "1 meter"
+scale_label = "5 kilometer"
 bbox = draw.textbbox((0, 0), scale_label, font=font)
 label_width = bbox[2] - bbox[0]
 label_height = bbox[3] - bbox[1]

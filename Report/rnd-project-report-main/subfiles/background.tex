@@ -7,11 +7,11 @@
     This section briefly overviews the key tools, techniques, and algorithms employed in this research, which are integral to point cloud processing, analysis, and classification.
     \subsection{Software Libraries}
     \subsubsection{\textbf{ICP} (Iterative Closest Point)}
-    ICP is a major algorithm used to align two-point clouds. It iteratively minimizes the difference between the source and target point clouds by finding the optimal rotation and translation. The algorithm assumes that an initial rough alignment is available and progressively refines the pose by minimizing a distance metric (typically the Euclidean distance) between corresponding points. ICP is fundamental in applications like 3D registration, SLAM (Simultaneous Localization and Mapping), and scene reconstruction.\cite{ICP}
+    ICP\cite{ICP} is a major algorithm used to align two-point clouds. It iteratively minimizes the difference between the source and target point clouds by finding the optimal rotation and translation. The algorithm assumes that an initial rough alignment is available and progressively refines the pose by minimizing a distance metric (typically the Euclidean distance) between corresponding points. ICP is fundamental in applications like 3D registration, SLAM (Simultaneous Localization and Mapping), and scene reconstruction.
     
     \subsubsection{\textbf{CloudCompare}}
     
-    CloudCompare\cite{ColoudCompare} is an open-source 3D point cloud processing software known for its robust support for point cloud and mesh comparison, registration, and visualization. It provides various manual and automatic processing tools, including filtering, segmentation, distance computation, and statistical analysis. CloudCompare supports various file formats and includes plugins like CANUPO for advanced classification. It is a powerful visualization and preprocessing platform in many LiDAR and photogrammetry-based workflows.
+    CloudCompare\cite{CloudCompare} is an open-source 3D point cloud processing software known for its robust support for point cloud and mesh comparison, registration, and visualization. It provides various manual and automatic processing tools, including filtering, segmentation, distance computation, and statistical analysis. CloudCompare supports various file formats and includes plugins like CANUPO for advanced classification. It is a powerful visualization and preprocessing platform in many LiDAR and photogrammetry-based workflows.
     
     \subsubsection{\textbf{Scalar Fields}}
     
@@ -19,7 +19,7 @@
     
     \subsubsection{\textbf{CANUPO} (Classifier of Advanced Numerics for Unstructured Pointclouds)}
 
-    CANUPO is a supervised machine learning plugin integrated into CloudCompare, designed specifically for classifying 3D point clouds. It leverages multi-scale dimensionality features, which describe the local geometric structure of a point neighborhood across different spatial scales. These features capture whether a group of points behaves more like a line (1D), a surface (2D), or a volume (3D) depending on the scale of observation. By analyzing these patterns at multiple scales, CANUPO can effectively distinguish between natural elements like vegetation and terrain, and artificial structures such as buildings. Once trained on labeled data, the model can accurately classify new point cloud data, making it especially useful in complex natural environments like forests or mountainous areas.\cite{canupo} \cite{canupo2}
+    CANUPO\cite{canupo} is a supervised machine learning plugin integrated into CloudCompare, designed specifically for classifying 3D point clouds. It leverages multi-scale dimensionality features, which describe the local geometric structure of a point neighborhood across different spatial scales. These features capture whether a group of points behaves more like a line (1D), a surface (2D), or a volume (3D) depending on the scale of observation. By analyzing these patterns at multiple scales, CANUPO\cite{canupo2}can effectively distinguish between natural elements like vegetation and terrain, and artificial structures such as buildings. Once trained on labeled data, the model can accurately classify new point cloud data, making it especially useful in complex natural environments like forests or mountainous areas. 
     
     \subsubsection{\textbf{CSF}(Cloth Simulation Filter}
     
@@ -31,11 +31,12 @@
     
     \subsubsection{\textbf{Open3D}}
     
-    Open3D is an open-source library developed for 3D data processing, particularly focused on point cloud, mesh, and RGB-D image processing. It provides tools for I/O operations, visualization, filtering, transformation, feature extraction, and deep learning integration. Open3D supports modern algorithms such as ICP, RANSAC, and voxel-based downsampling and integrates well with machine learning frameworks like PyTorch. It is widely used in academic research and industry due to its flexibility, performance, and ease of use in Python and C++ environments.\cite{Open3D_Library}
+    Open3D\cite{Open3D_Library} is an open-source library developed for 3D data processing, particularly focused on point cloud, mesh, and RGB-D image processing. It provides tools for I/O operations, visualization, filtering, transformation, feature extraction, and deep learning integration. Open3D supports modern algorithms such as ICP, RANSAC, and voxel-based downsampling and integrates well with machine learning frameworks like PyTorch. It is widely used in academic research and industry due to its flexibility, performance, and ease of use in Python and C++ environments.
     
     \subsubsection{\textbf{PCL} (Point Cloud Library)}
     
-    The Point Cloud Library (PCL) is a large-scale, open-source project designed for 2D/3D image and point cloud processing\cite{PCL}. It offers a comprehensive collection of algorithms for filtering, feature estimation, surface reconstruction, registration, segmentation, and visualization of point clouds. PCL supports multiple file formats and is optimized for performance, making it suitable for real-time applications such as autonomous navigation, object detection, and environment reconstruction. Its modular architecture includes key components like the filters module for preprocessing, the segmentation module for geometry-based classification, and the registration module for aligning multiple scans. Integration with ROS (Robot Operating System) further extends its utility in robotics and perception systems.\cite{PCL}
+    The Point Cloud Library\cite{PCL} (PCL) is a large-scale, open-source project designed for 2D/3D image and point cloud processing. It offers a comprehensive collection of algorithms for filtering, feature estimation, surface reconstruction, registration, segmentation, and visualization of point clouds. PCL supports multiple file formats and is optimized for performance, making it suitable for real-time applications such as autonomous navigation, object detection, and environment reconstruction. Its modular architecture includes key components like the filters module for preprocessing, the segmentation module for geometry-based classification, and the registration module for aligning multiple scans. Integration with ROS (Robot Operating System) further extends its utility in robotics and perception systems.
+    
     \subsection{Methods}
     \subsubsection{\textbf{PointNet}}
     

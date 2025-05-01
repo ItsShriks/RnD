@@ -50,9 +50,11 @@ Imagine standing inside a dense forest, looking at a vast expanse of trees, vege
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.4\textwidth]{rnd-project-report-main/figures/Original_data.png}
-        \caption{Original LiDAR Data}
+        \caption{Original LiDAR Data.}
         \label{fig:raw_data}
     \end{figure}
+
+The figure\ref{fig:raw_data} illustrates a 3D point cloud representation of a forested area, acquired via UAV-based LiDAR or photogrammetry. The color-coded points—green and blue—indicate different structural features within the scene, where green points are suggestive of vertical elements such as tree trunks or vegetation, and blue points represent the denser ground surface or terrain. This visualization facilitates spatial understanding of forest composition and is instrumental for tasks such as terrain modeling, vegetation mapping, and object segmentation in forest environments.
     
 The project addresses the challenge of accurately segmenting terrain from LiDAR point cloud data in complex forest environments. Raw LiDAR scans capture a dense collection of 3D points representing not just the ground but also a variety of objects, such as tree trunks, stumps, and dense vegetation. The primary problem lies in distinguishing the actual terrain from these overlying objects, given the ruggedness and heterogeneity of forest floors. Existing methods often struggle with transformation invariance, scalability, high computational demands, and the need for large labeled datasets, resulting in suboptimal segmentation and classification performance. This project aims to develop a potent and efficient classification system that can automatically clean, process, and segment LiDAR point cloud data to accurately identify and separate terrain from other objects, thereby enabling improved ecological analysis and forest management.
     \subsection{Proposed Approach}
@@ -62,17 +64,16 @@ The project adopts a multi-stage, unsupervised learning pipeline for point cloud
 \subsubsection{Data Acquisition and Preprocessing}
 Raw LiDAR point cloud data is collected, providing 3D coordinates for each scanned point. The data undergoes cleaning to remove outliers and normalization to standardize features, ensuring consistency and reliability for downstream analysis. The Open3D library is utilized for efficient point cloud processing.
 \subsubsection{Feature Extraction}
-Key geometric features—density, curvature, and height—are extracted from the cleaned data. These features are selected for their effectiveness in differentiating terrain from objects like tree trunks and stumps. Tools such as Open3D and PointNet are used for detailed feature analysis.\cite{Open3D_Library}\cite{PointNet}
+Key geometric features—density, curvature, and height—are extracted from the cleaned data. These features are selected for their effectiveness in differentiating terrain from objects like tree trunks and stumps. Tools such as Open3D\cite{Open3D_Library} and PointNet\cite{PointNet} are used for detailed feature analysis.
 \subsubsection{Unsupervised Clustering and Segmentation}
-Clustering algorithms, including DBScan and hierarchical clustering, are applied to group points based on feature similarity. This step segments the point cloud into clusters corresponding to different physical entities within the terrain, such as ground, stumps, and trunks.\cite{DBSCAN}\cite{DBSCan_Grammarly}
+Clustering algorithms, including DBScan\cite{DBSCAN} and hierarchical clustering, are applied to group points based on feature similarity. This step segments the point cloud into clusters corresponding to different physical entities within the terrain, such as ground, stumps, and trunks\cite{DBSCan_Grammarly}.
 \subsubsection{Cluster Classification}
-Further refinement is achieved through K-Means clustering, categorizing the segmented clusters into distinct classes. Advanced methods like Cloth Simulation Filtering (CSF) for ground extraction and PointNet++ for deep feature learning are employed to enhance classification accuracy and scalability. PyTorch serves as the primary framework for implementing these models.\cite{ClothSF}\cite{PointNet++}
+Further refinement is achieved through K-Means clustering, categorizing the segmented clusters into distinct classes. Advanced methods like Cloth Simulation Filtering (CSF)\cite{ClothSF} for ground extraction and PointNet++\cite{PointNet++} for deep feature learning are employed to enhance classification accuracy and scalability. PyTorch serves as the primary framework for implementing these models.
 \subsubsection{Validation and Evaluation}
-The effectiveness of the segmentation and classification is assessed using multiple validation metrics, including the silhouette coefficient, Davies-Bouldin index, and Calinski-Harabasz index. These metrics evaluate cluster cohesion and separation. Spatial validation ensures consistency across different regions, supporting practical ecological applications.\cite{Davies-Bouldin}\cite{Calinski}
+The effectiveness of the segmentation and classification is assessed using multiple validation metrics, including the silhouette coefficient, Davies-Bouldin index\cite{Davies-Bouldin}, and Calinski-Harabasz index\cite{Calinski}. These metrics evaluate cluster cohesion and separation. Spatial validation ensures consistency across different regions, supporting practical ecological applications.
 This code pipeline is designed to overcome the limitations of existing methods by ensuring transformation invariance, reducing reliance on labeled data through unsupervised learning, promoting scalability via architecture-agnostic design, and optimizing performance for large-scale, real-world forest datasets. The outcome is a validated segmentation model that provides actionable insights for forest management, ecological research, and land-use planning.
 
-\subsection{Conclusion}
-This pipeline enables the training of models for the classification and part segmentation of tree trunks, stumps, and terrain using LiDAR data combined with clustering and deep learning techniques.
-
+% \subsection{Conclusion}
+% This pipeline enables the training of models for the classification and part segmentation of tree trunks, stumps, and terrain using LiDAR data combined with clustering and deep learning techniques.
 
 \end{document}
